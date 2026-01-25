@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:thalorix_app/Features/splash/splash_view.dart';
+import 'package:thalorix_app/core/utils/router/app_router.dart';
 
 void main() {
-  runApp(const Thalorix());
+  final AppRouter myRouter = AppRouter();
+  runApp(Thalorix(appRouter: myRouter));
 }
 
 class Thalorix extends StatelessWidget {
-  const Thalorix({super.key});
+  final AppRouter appRouter;
+  const Thalorix({super.key, required this.appRouter});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: SplashView());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: Routes.splash,
+      onGenerateRoute: appRouter.generateRoute,
+    );
   }
 }
