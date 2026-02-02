@@ -233,8 +233,8 @@ class _LoginViewState extends State<LoginView> {
                         height: localheight * 0.06,
                         text: "Sign with Apple",
                         iconPath: "assets/icons/apple_account.svg",
-                        borderColor: AppColors.iconbutton, // نفس اللون
-                        textColor: AppColors.iconbutton, // نفس اللون
+                        borderColor: AppColors.iconbutton,
+                        textColor: AppColors.iconbutton, 
                         onTap: () {},
                       ),
                     ],

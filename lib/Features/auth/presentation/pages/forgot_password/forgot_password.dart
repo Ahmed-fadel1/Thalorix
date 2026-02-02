@@ -32,22 +32,27 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      height: localheight * 0.08,
-                      width: localwidth * 0.08,
-
-                      margin: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: AppColors.splashPrimary,
-                          width: 1,
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        height: localheight * 0.08,
+                        width: localwidth * 0.08,
+                      
+                        margin: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: AppColors.splashPrimary,
+                            width: 1,
+                          ),
                         ),
-                      ),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          "assets/icons/arrow_back.svg",
-                          color: AppColors.splashPrimary,
+                        child: Center(
+                          child: SvgPicture.asset(
+                            "assets/icons/arrow_back.svg",
+                            color: AppColors.splashPrimary,
+                          ),
                         ),
                       ),
                     ),

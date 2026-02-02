@@ -136,7 +136,7 @@ class _VerifictionState extends State<Verifiction> {
                         text: "Continue",
                         backgroundColor: AppColors.splashPrimary,
                         textColor: AppColors.background,
-                        onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => const ForgetPasswordScreen())),
+                        onTap: () => Navigator.pushNamed(context,Routes.forgotPassword,),
                       ),
                     ],
                   ),
