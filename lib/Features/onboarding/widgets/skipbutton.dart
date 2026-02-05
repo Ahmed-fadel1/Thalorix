@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:thalorix_app/core/utils/router/app_router.dart';
 
 Widget skipButton(BuildContext context) {
   return Positioned(
     top: 50,
     right: 20,
     child: GestureDetector(
-      onTap: () => Navigator.pop(context),
+      onTap: () => Navigator.pushNamed(context, Routes.login),
+
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         decoration: BoxDecoration(

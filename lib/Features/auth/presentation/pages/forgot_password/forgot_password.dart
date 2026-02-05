@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:thalorix_app/core/utils/Colors/app_colors.dart';
+import 'package:thalorix_app/core/utils/router/app_router.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
@@ -39,7 +40,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       child: Container(
                         height: localheight * 0.08,
                         width: localwidth * 0.08,
-                      
+
                         margin: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
@@ -200,6 +201,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 backgroundColor: const Color(0xFF2ecc71),
               ),
             );
+            Navigator.pushNamed(context, Routes.verification);
           }
         },
         style: ElevatedButton.styleFrom(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:thalorix_app/Features/onboarding/onboarding_view.dart';
+import 'package:thalorix_app/Features/onboarding/presentation/onboarding_view.dart';
 import 'package:thalorix_app/core/utils/Colors/app_colors.dart';
 
 class SplashView extends StatefulWidget {

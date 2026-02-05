@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:thalorix_app/Features/onboarding/OnBoarding_Three.dart';
+import 'package:thalorix_app/Features/onboarding/widgets/OnBoarding_Three.dart';
 import 'package:thalorix_app/Features/onboarding/widgets/build_page.dart';
 import 'package:thalorix_app/Features/onboarding/widgets/dot_indicator.dart';
 import 'package:thalorix_app/Features/onboarding/widgets/skipbutton.dart';

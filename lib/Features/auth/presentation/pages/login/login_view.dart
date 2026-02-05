@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:thalorix_app/Features/auth/presentation/pages/SignUp/signup_view.dart';
-import 'package:thalorix_app/Features/auth/presentation/pages/verifiction/Verifiction.dart';
 import 'package:thalorix_app/Features/auth/presentation/widgets/Icon_Text_Button.dart';
 import 'package:thalorix_app/Features/auth/presentation/widgets/auth_text_field.dart';
 import 'package:thalorix_app/Features/auth/presentation/widgets/primary_button.dart';
@@ -133,7 +131,7 @@ class _LoginViewState extends State<LoginView> {
                         alignment: Alignment.centerRight,
                         child: InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, Routes.verification);
+                            Navigator.pushNamed(context, Routes.forgotPassword);
                           },
                           child: Text(
                             "Forgot Password?",
@@ -221,7 +219,7 @@ class _LoginViewState extends State<LoginView> {
 
                       IconTextButton(
                         height: localheight * 0.06,
-                        text: "Sign with Apple",
+                        text: "Sign with Google",
                         iconPath: "assets/icons/google_account.svg",
                         borderColor: AppColors.iconbutton, // نفس اللون
                         textColor: AppColors.iconbutton, // نفس اللون
@@ -234,7 +232,7 @@ class _LoginViewState extends State<LoginView> {
                         text: "Sign with Apple",
                         iconPath: "assets/icons/apple_account.svg",
                         borderColor: AppColors.iconbutton,
-                        textColor: AppColors.iconbutton, 
+                        textColor: AppColors.iconbutton,
                         onTap: () {},
                       ),
                     ],
