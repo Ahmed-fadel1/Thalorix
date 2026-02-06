@@ -3,10 +3,12 @@ import 'package:thalorix_app/Features/auth/presentation/pages/forgot_password/fo
 import 'package:thalorix_app/Features/auth/presentation/pages/login/login_view.dart';
 import 'package:thalorix_app/Features/auth/presentation/pages/SignUp/signup_view.dart';
 import 'package:thalorix_app/Features/auth/presentation/pages/verifiction/Verifiction.dart';
+import 'package:thalorix_app/Features/home/presentation/home_view.dart';
 import 'package:thalorix_app/Features/splash/presentation/splash_view.dart';
 
 class Routes {
   static const String login = '/login';
+  static const String home = '/home';
   static const String signup = '/signup';
   static const String splash = '/splash';
   static const String verification = '/verifiction';
@@ -18,6 +20,8 @@ class AppRouter {
     switch (settings.name) {
       case Routes.login:
         return MaterialPageRoute(builder: (_) => LoginView());
+      case Routes.home:
+        return MaterialPageRoute(builder: (_) => HomeView());
       case Routes.signup:
         return MaterialPageRoute(builder: (_) => const SignupView());
       case Routes.splash:
