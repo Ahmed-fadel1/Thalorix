@@ -191,7 +191,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               ),
             );
           } else {
-            final method = _selectedOption == 'email'
+            final method = _selectedOption == 'Email'
                 ? 'email'
                 : 'phone number';
             ScaffoldMessenger.of(context).showSnackBar(
