@@ -14,7 +14,7 @@ class Thalorix extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.home,
+      initialRoute: Routes.codeGenerate,
       onGenerateRoute: appRouter.generateRoute,
     );
   }

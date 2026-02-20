@@ -3,11 +3,15 @@ import 'package:thalorix_app/Features/auth/presentation/pages/forgot_password/fo
 import 'package:thalorix_app/Features/auth/presentation/pages/login/login_view.dart';
 import 'package:thalorix_app/Features/auth/presentation/pages/SignUp/signup_view.dart';
 import 'package:thalorix_app/Features/auth/presentation/pages/verifiction/Verifiction.dart';
+import 'package:thalorix_app/Features/code_generation/presentation/code_generation_progress_page.dart';
+import 'package:thalorix_app/Features/code_generation/presentation/code_generation_view.dart';
 import 'package:thalorix_app/Features/home/presentation/home_view.dart';
 import 'package:thalorix_app/Features/splash/presentation/splash_view.dart';
 
 class Routes {
   static const String login = '/login';
+  static const String codeGenerate = '/codeGenerate';
+  static const String codeGenerateprogress = '/codeGenerateprogress';
   static const String home = '/home';
   static const String signup = '/signup';
   static const String splash = '/splash';
@@ -30,6 +34,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const Verifiction());
       case Routes.forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgetPasswordScreen());
+      case Routes.codeGenerate:
+        return MaterialPageRoute(builder: (_) => const CodeGenerationView());
+      case Routes.codeGenerateprogress:
+        return MaterialPageRoute(
+          builder: (_) => const CodeGenerationProgressPage(),
+        );
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
