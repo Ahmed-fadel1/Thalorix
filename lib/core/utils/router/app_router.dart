@@ -3,8 +3,10 @@ import 'package:thalorix_app/Features/auth/presentation/pages/forgot_password/fo
 import 'package:thalorix_app/Features/auth/presentation/pages/login/login_view.dart';
 import 'package:thalorix_app/Features/auth/presentation/pages/SignUp/signup_view.dart';
 import 'package:thalorix_app/Features/auth/presentation/pages/verifiction/Verifiction.dart';
+import 'package:thalorix_app/Features/chats/presentation/chats_screen.dart';
 import 'package:thalorix_app/Features/home/presentation/home_view.dart';
 import 'package:thalorix_app/Features/splash/presentation/splash_view.dart';
+import 'package:thalorix_app/Features/profile/presentation/edit_profile_screen.dart'; 
 
 class Routes {
   static const String login = '/login';
@@ -13,6 +15,9 @@ class Routes {
   static const String splash = '/splash';
   static const String verification = '/verifiction';
   static const String forgotPassword = '/forgotPassword';
+  static const String editProfile = '/editProfile'; 
+  static const String ChatsScreen = '/ChatsScreen'; 
+
 }
 
 class AppRouter {
@@ -30,6 +35,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const Verifiction());
       case Routes.forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgetPasswordScreen());
+      case Routes.editProfile:
+        return MaterialPageRoute(builder: (_) => const EditProfileScreen()); 
+        case Routes.ChatsScreen:
+        return MaterialPageRoute(builder: (_) => const ChatsScreen()); 
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

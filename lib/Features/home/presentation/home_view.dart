@@ -13,7 +13,7 @@ class HomeView extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -23,16 +23,15 @@ class HomeView extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 25,
-                        backgroundImage: NetworkImage(
-                          'https://via.placeholder.com/150',
-                        ),
+                        backgroundImage:
+                            NetworkImage('https://via.placeholder.com/150'),
                       ),
-                      SizedBox(width: 15),
+                      const SizedBox(width: 15),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                        children: const [
                           Text(
                             "Welcome, Alex",
                             style: TextStyle(
@@ -41,35 +40,28 @@ class HomeView extends StatelessWidget {
                               color: Color(0xFF0D3B40),
                             ),
                           ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Color(0xFFB2D8D8),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Text(
-                              "</> Developer",
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Color(0xFF0D3B40),
-                              ),
+                          SizedBox(height: 4),
+                          Text(
+                            "</> Developer",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Color(0xFF0D3B40),
                             ),
                           ),
                         ],
                       ),
                     ],
                   ),
-                  CircleAvatar(
-                    backgroundColor: (AppColors.splashPrimary),
+                  const CircleAvatar(
+                    backgroundColor: AppColors.splashPrimary,
                     child: Icon(Icons.notifications, color: Colors.white),
                   ),
                 ],
               ),
-              SizedBox(height: 30),
-              Text(
+              const SizedBox(height: 30),
+
+              // Quick Access Section
+              const Text(
                 "Quick Access",
                 style: TextStyle(
                   fontSize: 18,
@@ -77,11 +69,10 @@ class HomeView extends StatelessWidget {
                   color: Color(0xFF0D3B40),
                 ),
               ),
-              SizedBox(height: 15),
-
+              const SizedBox(height: 15),
               GridView.count(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: 2,
                 crossAxisSpacing: 15,
                 mainAxisSpacing: 15,
@@ -91,34 +82,34 @@ class HomeView extends StatelessWidget {
                     "Upload Template",
                     "Share your templates",
                     Icons.upload,
-                    [Color(0xFFB2D8D8), Color(0xFF8AB6B6)],
+                    const [Color(0xFFB2D8D8), Color(0xFF8AB6B6)],
                   ),
                   BuildQuickAccessCard(
                     "Community",
                     "Join discussions",
                     Icons.group,
-                    [Color(0xFFB2D8D8), Color(0xFF8AB6B6)],
+                    const [Color(0xFFB2D8D8), Color(0xFF8AB6B6)],
                   ),
                   BuildQuickAccessCard(
                     "Messages",
                     "Chat with team",
                     Icons.chat_bubble_outline,
-                    [Color(0xFF3B6B6B), Color(0xFF0D3B40)],
+                    const [Color(0xFF3B6B6B), Color(0xFF0D3B40)],
                   ),
                   BuildQuickAccessCard(
                     "Analytics",
                     "Track performance",
                     Icons.show_chart,
-                    [Color(0xFF3B6B6B), Color(0xFF0D3B40)],
+                    const [Color(0xFF3B6B6B), Color(0xFF0D3B40)],
                   ),
                 ],
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
 
               // Recent Activity Section
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Text(
                     "Recent Activity",
                     style: TextStyle(
@@ -130,8 +121,7 @@ class HomeView extends StatelessWidget {
                   Text("View All", style: TextStyle(color: Color(0xFF3B6B6B))),
                 ],
               ),
-              SizedBox(height: 15),
-
+              const SizedBox(height: 15),
               BuildActivityItem(
                 "E-commerce Template",
                 "Purchased 2 hours ago",
@@ -148,7 +138,7 @@ class HomeView extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavBar(),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }
