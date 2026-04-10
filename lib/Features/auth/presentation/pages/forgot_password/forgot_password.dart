@@ -194,15 +194,23 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               ),
             );
           } else {
-            final method = _selectedOption == 'email'
-                ? 'email'
-                : 'phone number';
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('You selected $method'),
-                backgroundColor: const Color(0xFF2ecc71),
-              ),
-            );
+           
+            if (_selectedOption == 'Email') {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EmailScreen(),
+                ),
+              );
+            } else if (_selectedOption == 'phone') {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ResetPhonePassword(),
+                ),
+              );
+            }
+           
           }
         },
         style: ElevatedButton.styleFrom(

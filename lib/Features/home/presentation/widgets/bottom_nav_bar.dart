@@ -26,7 +26,11 @@ class BottomNavBar extends StatelessWidget {
           label: "",
         ),
         BottomNavigationBarItem(icon: Icon(Icons.group_outlined), label: ""),
-        BottomNavigationBarItem(icon: Icon(Icons.storefront), label: ""),
+        BottomNavigationBarItem(icon: GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, Routes.);
+          },
+          child: Icon(Icons.storefront)), label: ""),
         BottomNavigationBarItem(
           icon: GestureDetector(
             onTap: () {

@@ -156,10 +156,7 @@ class _LoginViewState extends State<LoginView> {
                         backgroundColor: AppColors.iconbutton,
                         textColor: Colors.white,
                         onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            Routes.login,
-                          ); // login action
+                          Navigator.pushNamed(context, Routes.home);
                         },
                       ),
 
