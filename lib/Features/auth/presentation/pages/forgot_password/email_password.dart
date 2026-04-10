@@ -20,7 +20,7 @@ class _EmailScreenState extends State<EmailScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  /// validator method
+ 
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Password is required';
@@ -40,7 +40,7 @@ class _EmailScreenState extends State<EmailScreen> {
     if (!RegExp(r'[!@#\$&*~%^]').hasMatch(value)) {
       return 'Add at least one special character';
     }
-    return null; // valid
+    return null; 
   }
 
   String? validateConfirmPassword(String? value, String password) {
@@ -146,7 +146,7 @@ void dispose() {
 
                             log("Password: $password");
 
-                            /// هنا هنبعت OTP أو API
+                           
                           }
                         },
                       ),

@@ -23,7 +23,7 @@ class _ResetPhonePasswordState extends State<ResetPhonePassword> {
   if (!RegExp(r'^\+?[0-9]{7,15}$').hasMatch(value)) {
     return 'Enter a valid phone number';
   }
-  return null; // valid
+  return null; 
 }
 void dispose() {
   phonenumberController.dispose();
@@ -108,7 +108,7 @@ void dispose() {
                            log("Phone number is valid: $phone");
                             
 
-                            /// هنا هنبعت OTP أو API
+                           
                           }
                         },
                       ),
