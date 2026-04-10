@@ -10,6 +10,11 @@ class SignupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController fullNameController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+    TextEditingController confirmPasswordController = TextEditingController();
+
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -77,6 +82,7 @@ class SignupView extends StatelessWidget {
                         ),
                       ),
                       AuthTextField(
+                        controller: fullNameController,
                         hint: "Enter your full name",
                         keyboardType: TextInputType.name,
                         obscureText: false,
@@ -91,6 +97,7 @@ class SignupView extends StatelessWidget {
                         ),
                       ),
                       AuthTextField(
+                        controller: emailController,
                         hint: "Enter your email or phone",
                         keyboardType: TextInputType.emailAddress,
                         obscureText: false,
@@ -105,6 +112,8 @@ class SignupView extends StatelessWidget {
                         ),
                       ),
                       AuthTextField(
+                        controller: passwordController,
+                         prefixIcon: Icon(Icons.lock_rounded),
                         hint: "Enter your password",
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: true,
@@ -120,6 +129,8 @@ class SignupView extends StatelessWidget {
                         ),
                       ),
                       AuthTextField(
+                          controller: confirmPasswordController,
+                       
                         hint: "Confirm your password",
                         hintstyle: AppColors.border,
                         keyboardType: TextInputType.visiblePassword,

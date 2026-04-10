@@ -6,6 +6,7 @@ class PrimaryButton extends StatelessWidget {
   final Color backgroundColor;
   final Color textColor;
   final VoidCallback? onTap;
+  
 
   const PrimaryButton({
     super.key,
@@ -14,6 +15,8 @@ class PrimaryButton extends StatelessWidget {
     required this.backgroundColor,
     required this.textColor,
     this.onTap,
+
+  
   });
 
   @override
@@ -26,11 +29,13 @@ class PrimaryButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(8),
+          
         ),
         child: Center(
           child: Text(
             text,
             style: TextStyle(
+
               color: textColor,
               fontSize: 18,
               fontWeight: FontWeight.w500,

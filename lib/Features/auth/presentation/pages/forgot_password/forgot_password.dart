@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:thalorix_app/Features/auth/presentation/pages/forgot_password/email_password.dart';
+import 'package:thalorix_app/Features/auth/presentation/pages/forgot_password/reset_phone_password.dart';
 import 'package:thalorix_app/core/utils/Colors/app_colors.dart';
 import 'package:thalorix_app/core/utils/router/app_router.dart';
 
@@ -201,7 +203,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 backgroundColor: const Color(0xFF2ecc71),
               ),
             );
-            Navigator.pushNamed(context, Routes.verification);
           }
         },
         style: ElevatedButton.styleFrom(
