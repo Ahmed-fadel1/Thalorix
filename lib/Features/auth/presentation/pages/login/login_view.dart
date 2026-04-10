@@ -16,6 +16,9 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   bool obscureText = true;
   @override
   Widget build(BuildContext context) {
@@ -84,6 +87,7 @@ class _LoginViewState extends State<LoginView> {
                         ),
                       ),
                       AuthTextField(
+                        controller: emailController,
                         hint: "Enter your email",
                         suffixIcon: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -107,6 +111,8 @@ class _LoginViewState extends State<LoginView> {
                         ),
                       ),
                       AuthTextField(
+                        controller: passwordController,
+
                         hint: "Enter your password",
                         obscureText: true,
                         keyboardType: TextInputType.visiblePassword,

@@ -8,5 +8,5 @@ class AppColors {
   static const Color iconbutton = Color(0xFF346C73);
   static const Color welcome_text = Color(0xFF6A9BA6);
   static const Color border = Color(0xFFA3C9D9);
- 
+ static const Color gery = Color(0xFFCED0D3);
 }

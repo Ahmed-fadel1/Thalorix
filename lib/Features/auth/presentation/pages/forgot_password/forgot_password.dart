@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:thalorix_app/Features/auth/presentation/pages/forgot_password/email_password.dart';
+import 'package:thalorix_app/Features/auth/presentation/pages/forgot_password/reset_phone_password.dart';
 import 'package:thalorix_app/core/utils/Colors/app_colors.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
@@ -190,17 +192,23 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 backgroundColor: Colors.red,
               ),
             );
-          } else {
-            final method = _selectedOption == 'Email'
-                ? 'email'
-                : 'phone number';
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('You selected $method'),
-                backgroundColor: const Color(0xFF2ecc71),
-              ),
-            );
-          }
+          } if (_selectedOption == "Email") {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const EmailScreen(),
+      ),
+
+    );
+  } 
+    else if (_selectedOption == "phone") {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ResetPhonePassword(),
+      )
+    );
+  }
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.splashPrimary,
