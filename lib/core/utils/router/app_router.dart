@@ -12,7 +12,7 @@ class Routes {
   static const String login = '/login';
   static const String codeGenerate = '/codeGenerate';
   static const String codeGenerateprogress = '/codeGenerateprogress';
-  static const String home = '/home';
+  static const String home = '/';
   static const String signup = '/signup';
   static const String splash = '/splash';
   static const String verification = '/verifiction';
