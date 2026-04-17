@@ -122,7 +122,8 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                         padding: const EdgeInsets.only(right: 8.0),
                         child: CircleAvatar(
                           radius: 16,
-                          backgroundImage: NetworkImage(widget.avatar),
+                          backgroundImage: NetworkImage(widget.avatar
+                          ),
                         ),
                       ),
                     Flexible(

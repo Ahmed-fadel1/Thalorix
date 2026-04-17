@@ -13,7 +13,7 @@ class ChatsScreen extends StatelessWidget {
       "time": "09:20 am",
       "unread": 2,
       "online": true,
-      "avatar": "https://randomuser.me/api/portraits/women/65.jpg",
+      "avatar": "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png",
     },
     {
       "name": "marc",
@@ -21,7 +21,7 @@ class ChatsScreen extends StatelessWidget {
       "time": "09:20 am",
       "unread": 1,
       "online": false,
-      "avatar": "https://randomuser.me/api/portraits/men/32.jpg",
+      "avatar": "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
     },
     {
       "name": "jack",
@@ -29,15 +29,14 @@ class ChatsScreen extends StatelessWidget {
       "time": "08:30 am",
       "unread": 0,
       "online": false,
-      "avatar": "https://randomuser.me/api/portraits/men/45.jpg",
-    },
+      "avatar": "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"},
     {
       "name": "omar",
       "lastMessage": "where are you......",
       "time": "07:32 am",
       "unread": 0,
       "online": true,
-      "avatar": "https://randomuser.me/api/portraits/men/15.jpg",
+      "avatar": "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png",
     },
   ];
 
@@ -241,7 +240,7 @@ class ChatsScreen extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: const BottomNavBar(),
+      // bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

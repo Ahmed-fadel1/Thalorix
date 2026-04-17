@@ -3,7 +3,11 @@ import 'package:thalorix_app/Features/auth/presentation/pages/forgot_password/fo
 import 'package:thalorix_app/Features/auth/presentation/pages/login/login_view.dart';
 import 'package:thalorix_app/Features/auth/presentation/pages/SignUp/signup_view.dart';
 import 'package:thalorix_app/Features/auth/presentation/pages/verifiction/Verifiction.dart';
+import 'package:thalorix_app/Features/chats/presentation/chats_screen.dart';
+import 'package:thalorix_app/Features/community/presentation/views/community_view.dart';
 import 'package:thalorix_app/Features/home/presentation/home_view.dart';
+import 'package:thalorix_app/Features/home/presentation/widgets/bottom_nav_bar.dart';
+import 'package:thalorix_app/Features/marketplace/presentation/pages/market_Place_view.dart';
 import 'package:thalorix_app/Features/splash/presentation/splash_view.dart';
 import 'package:thalorix_app/Features/profile/presentation/edit_profile_screen.dart';
 
@@ -18,6 +22,8 @@ class Routes {
   static const String forgotPassword = '/forgotPassword';
   static const String editProfile = '/editProfile';
   static const String ChatsScreen = '/ChatsScreen';
+  static const String marketPlace = '/marketPlace';
+  static const String community = '/community';
 }
 
 class AppRouter {
@@ -26,7 +32,7 @@ class AppRouter {
       case Routes.login:
         return MaterialPageRoute(builder: (_) => LoginView());
       case Routes.home:
-        return MaterialPageRoute(builder: (_) => HomeView());
+        return MaterialPageRoute(builder: (_) => const HomeView());
       case Routes.signup:
         return MaterialPageRoute(builder: (_) => const SignupView());
       case Routes.splash:
@@ -35,6 +41,14 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const Verifiction());
       case Routes.forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgetPasswordScreen());
+      case Routes.marketPlace:
+        return MaterialPageRoute(builder: (_) => const MarketPlaceView());
+      case Routes.editProfile:
+        return MaterialPageRoute(builder: (_) => const EditProfileScreen());
+        case Routes.ChatsScreen:
+        return MaterialPageRoute(builder: (_) => const ChatsScreen());
+        case Routes.community:
+        return MaterialPageRoute(builder: (_) =>const CommunityView());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

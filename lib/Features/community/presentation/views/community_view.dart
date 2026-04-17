@@ -12,55 +12,66 @@ class CommunityView extends StatefulWidget {
 }
 
 class _CommunityViewState extends State<CommunityView> {
-  int selectedIndex = 0; 
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-      final width = MediaQuery.of(context).size.width;
-    return SafeArea(child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Column(
-        children: [
-        CustomAppBar(title: "Community",
-        action:Icon(Icons.notifications_on_outlined)
+    final width = MediaQuery.of(context).size.width;
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Column(
+          children: [
+            CustomAppBar(
+              title: "Community",
+              action: Icon(Icons.notifications_on_outlined),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: SwitchButton(
+                      text: "Latest",
+                      index: 0,
+                      selectedIndex: selectedIndex,
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = 0;
+                        });
+                      },
+                    ),
+                  ),
+
+                  Expanded(
+                    child: SwitchButton(
+                      text: "Trending",
+                      index: 1,
+                      selectedIndex: selectedIndex,
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = 1;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            Expanded(
+              child: ListView.separated(
+                padding: const EdgeInsets.only(top: 8, bottom: 16),
+                itemBuilder: (context, index) => PostCard(),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 10),
+                itemCount: 10,
+              ),
+            ),
+          ],
+        ),
       ),
-
-     Padding(
-       padding: const EdgeInsets.all(10.0),
-       child: Row(
-         children: [
-           SwitchButton(
-        text: "Latest",
-        index: 0,
-        selectedIndex: selectedIndex,
-        onTap: () {
-          setState(() {
-            selectedIndex = 0;
-          });
-        },
-           ),
-          
-           SwitchButton(
-        text: "Trending",
-        index: 1,
-        selectedIndex: selectedIndex,
-        onTap: () {
-          setState(() {
-            selectedIndex = 1;
-          });
-        },
-           ),
-         ],
-       ),
-     ),
-
-Expanded(child: ListView.separated(itemBuilder: (context, index) => PostCard(), separatorBuilder: (context, index) => const SizedBox(height: 10), itemCount: 10)),
-
-
-      ],
-      
-        
-      ),
-    ));
+    );
   }
 }

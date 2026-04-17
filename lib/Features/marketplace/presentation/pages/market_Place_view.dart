@@ -20,79 +20,94 @@ class MarketPlaceView extends StatefulWidget {
 class _MarketPlaceViewState extends State<MarketPlaceView> {
   final dataSource = MarketplaceLocalDataSource();
   late final List<ProductModel> products;
+    final TextEditingController searchController = TextEditingController();
   void initState() {
     super.initState();
     products = dataSource.getProducts();
   }
+void searchProducts(String query) {
+  final results = products.where((product) {
+    final title = product.title.toLowerCase();
+    final input = query.toLowerCase();
 
+    return title.contains(input);
+  }).toList();
+
+  setState(() {
+  products = results;
+  });
+}
   @override
   Widget build(BuildContext context) {
 
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
   
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: Column(
-          children: [
-            CustomAppBar(
-              leading: Icon(Icons.store_rounded),
-              title: "Marketplace",
-              action: IconButton(
-                icon: const Icon(Icons.shopping_cart_outlined),
-                onPressed: () {},
-              ),
-            ),
-            Divider(
-              thickness: 1,
-              color: AppColors.border,
-              endIndent: 10,
-              indent: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 10,
-              ),
-              child: AuthTextField(
-                hint: "Search templates..",
-                keyboardType: TextInputType.text,
-                obscureText: false,
-                prefixIcon: Icon(Icons.search),
-                prefixIconColor: AppColors.border,
-              ),
-            ),
-            RowFilterCategories(),
-            SizedBox(height: height * 0.02),
-            Expanded(
-              child: GridView.builder(
-                itemCount: products.length,
-
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 0.7,
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
+    return Material(
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Column(
+            children: [
+              CustomAppBar(
+                leading: Icon(Icons.store_rounded),
+                title: "Marketplace",
+                action: IconButton(
+                  icon: const Icon(Icons.shopping_cart_outlined),
+                  onPressed: () {},
                 ),
-                itemBuilder: (context, index) {
-                  return ProductCard(
-                    imagepath: products[index].image,
-                    onpressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) =>
-                              TemplateDetailsView(product: products[index]),
-                        ),
-                      );
-                    },
-                    title: products[index].title,
-                  );
-                },
               ),
-            ),
-          ],
+              Divider(
+                thickness: 1,
+                color: AppColors.border,
+                endIndent: 10,
+                indent: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 10,
+                ),
+                child: AuthTextField(
+                  controller: searchController,
+                  hint: "Search templates..",
+                  keyboardType: TextInputType.text,
+                  obscureText: false,
+                  prefixIcon: Icon(Icons.search),
+                  prefixIconColor: AppColors.border,
+                ),
+              ),
+              RowFilterCategories(),
+              SizedBox(height: height * 0.02),
+              Expanded(
+                child: GridView.builder(
+                  itemCount: products.length,
+      
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 0.7,
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                  ),
+                  itemBuilder: (context, index) {
+                    return ProductCard(
+                      imagepath: products[index].image,
+                      onpressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                TemplateDetailsView(product: products[index]),
+                          ),
+                        );
+                      },
+                      title: products[index].title,
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

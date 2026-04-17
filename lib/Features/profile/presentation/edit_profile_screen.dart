@@ -217,7 +217,7 @@ class EditProfileScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomNavBar(),
+     // bottomNavigationBar: const BottomNavBar(),
     );
   }
 }
