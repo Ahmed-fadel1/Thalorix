@@ -44,7 +44,7 @@ class _VerifictionState extends State<Verifiction> {
                               margin: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 color: AppColors.background,
-                  
+
                                 border: Border.all(
                                   color: AppColors.splashPrimary,
                                 ),
@@ -60,7 +60,7 @@ class _VerifictionState extends State<Verifiction> {
                           ),
                         ],
                       ),
-                  
+
                       const Text(
                         "Verification Email",
                         style: TextStyle(
@@ -69,18 +69,18 @@ class _VerifictionState extends State<Verifiction> {
                           color: Color(0xFF1C3A3E),
                         ),
                       ),
-                  
+
                       const SizedBox(height: 8),
-                  
+
                       /// Subtitle
                       const Text(
                         "please enter the code we just sent to email",
                         style: TextStyle(fontSize: 14, color: Colors.grey),
                         textAlign: TextAlign.center,
                       ),
-                  
+
                       const SizedBox(height: 4),
-                  
+
                       const Text(
                         "rigggyyxxx@gmail.com",
                         style: TextStyle(
@@ -89,9 +89,9 @@ class _VerifictionState extends State<Verifiction> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                  
+
                       const SizedBox(height: 30),
-                  
+
                       OtpInputWidget(
                         activeBorderColor: Color.fromARGB(255, 86, 124, 129),
                         onCodeChanged: (code) {
@@ -102,7 +102,6 @@ class _VerifictionState extends State<Verifiction> {
                         },
                         onCompleted: (code) {
                           print("the end code is: $code");
-                         
                         },
                       ),
                       SizedBox(height: localheight * 0.08),
@@ -129,14 +128,15 @@ class _VerifictionState extends State<Verifiction> {
                         "Code expires in 01:56",
                         style: TextStyle(fontSize: 13, color: Colors.red),
                       ),
-                  
+
                       const SizedBox(height: 30),
                       PrimaryButton(
                         height: localheight * 0.07,
                         text: "Continue",
                         backgroundColor: AppColors.splashPrimary,
                         textColor: AppColors.background,
-                        onTap: () => Navigator.pushNamed(context,Routes.forgotPassword,),
+                        onTap: () =>
+                            Navigator.pushNamed(context, Routes.forgotPassword),
                       ),
                     ],
                   ),
