@@ -10,6 +10,7 @@ import 'package:thalorix_app/core/cache/cache_helper.dart';
 class AuthCubit extends Cubit<AuthState> {
   final SignUpUseCase signUpUseCase;
   final LoginUseCase loginUseCase;
+  String? lastEmail;
 
   AuthCubit(this.signUpUseCase, this.loginUseCase) : super(AuthInitial());
 
@@ -50,8 +51,8 @@ Future<void> login() async {
     },
   );
 }
-  Future<void> signUp() async {
- 
+  Future<void> signUp({required String email}) async {
+ lastEmail = email; 
     if (nameController.text.isEmpty ||
         emailController.text.isEmpty ||
         phoneController.text.isEmpty ||
@@ -71,7 +72,7 @@ Future<void> login() async {
 
     final result = await signUpUseCase(
       name: nameController.text.trim(),
-      email: emailController.text.trim(),
+      email: email,
       phone: phoneController.text.trim(),
       password: passwordController.text.trim(),
       confirmPassword: confirmPasswordController.text.trim(),

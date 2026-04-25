@@ -21,7 +21,6 @@ class AuthRemoteDataSource {
         "phone": phone,
         "password": password,
         "cPassword": confirmPassword,
-        "role": role,
       },
     );
   }

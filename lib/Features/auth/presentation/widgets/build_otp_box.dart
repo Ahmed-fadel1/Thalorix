@@ -22,8 +22,8 @@ class OtpBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 65,
-      height: 70,
+      width: 50,
+      height: 60,
       decoration: BoxDecoration(
         color: boxColor,
         borderRadius: BorderRadius.circular(12),

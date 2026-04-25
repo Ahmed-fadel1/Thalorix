@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:thalorix_app/Features/auth/presentation/cubit/otp_cubit/otp_cubit.dart';
 import 'package:thalorix_app/Features/auth/presentation/pages/forgot_password/forgot_password.dart';
 import 'package:thalorix_app/Features/auth/presentation/pages/login/login_view.dart';
 import 'package:thalorix_app/Features/auth/presentation/pages/SignUp/signup_view.dart';
@@ -30,25 +32,31 @@ class AppRouter {
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.login:
-        return MaterialPageRoute(builder: (_) => LoginView());
+        return MaterialPageRoute(settings: settings, builder: (_) => LoginView());
       case Routes.home:
-        return MaterialPageRoute(builder: (_) => const HomeView());
+        return MaterialPageRoute(settings: settings, builder: (_) => const HomeView());
       case Routes.signup:
-        return MaterialPageRoute(builder: (_) => const SignupView());
+        return MaterialPageRoute(settings: settings, builder: (_) => const SignupView());
       case Routes.splash:
-        return MaterialPageRoute(builder: (_) => const SplashView());
+        return MaterialPageRoute(settings: settings, builder: (_) => const SplashView());
       case Routes.verification:
-        return MaterialPageRoute(builder: (_) => const Verifiction());
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => BlocProvider(
+            create: (context) => OtpCubit()..startTimer(),
+            child: const Verifiction(),
+          ),
+        );
       case Routes.forgotPassword:
-        return MaterialPageRoute(builder: (_) => const ForgetPasswordScreen());
+        return MaterialPageRoute(settings: settings, builder: (_) => const ForgetPasswordScreen());
       case Routes.marketPlace:
-        return MaterialPageRoute(builder: (_) => const MarketPlaceView());
+        return MaterialPageRoute(settings: settings, builder: (_) => const MarketPlaceView());
       case Routes.editProfile:
-        return MaterialPageRoute(builder: (_) => const EditProfileScreen());
+        return MaterialPageRoute(settings: settings, builder: (_) => const EditProfileScreen());
         case Routes.ChatsScreen:
-        return MaterialPageRoute(builder: (_) => const ChatsScreen());
+        return MaterialPageRoute(settings: settings, builder: (_) => const ChatsScreen());
         case Routes.community:
-        return MaterialPageRoute(builder: (_) =>const CommunityView());
+        return MaterialPageRoute(settings: settings, builder: (_) =>const CommunityView());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

@@ -62,17 +62,21 @@ class _OtpInputWidgetState extends State<OtpInputWidget> {
           focusNode: _focusNodes[index],
           activeBorderColor: widget.activeBorderColor,
           boxColor: widget.boxColor,
-          
+
           onChanged: (value) {
-            if (value.length == 1 && index < 3) {
+            if (value.length == 1 && index < widget.length - 1) {
               FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
             }
             if (value.isEmpty && index > 0) {
               FocusScope.of(context).requestFocus(_focusNodes[index - 1]);
             }
-            
+
             String currentCode = _controllers.map((c) => c.text).join();
-            print(currentCode);
+            widget.onCodeChanged(currentCode);
+
+            if (currentCode.length == widget.length) {
+              widget.onCompleted?.call(currentCode);
+            }
           },
         );
       }),

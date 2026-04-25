@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:thalorix_app/Features/auth/data/data_sources/auth_remote_data_source.dart';
+import 'package:thalorix_app/Features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:thalorix_app/Features/auth/domain/usecases/login_usecase.dart';
+import 'package:thalorix_app/Features/auth/domain/usecases/sign_up_usecase.dart';
+import 'package:thalorix_app/Features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:thalorix_app/core/cache/cache_helper.dart';
 import 'package:thalorix_app/core/utils/router/app_router.dart';
 
@@ -9,7 +15,17 @@ void main() async{
   await CacheHelper.init(); 
   DioHelper.init();
   final AppRouter myRouter = AppRouter();
-  runApp(Thalorix(appRouter: myRouter));
+  runApp(BlocProvider(
+    create: (context) {
+            final repo = AuthRepositoryImpl(AuthRemoteDataSource());
+
+      return AuthCubit(
+        SignUpUseCase(repo),
+        LoginUseCase(repo),
+      );
+
+    },
+    child: Thalorix(appRouter: myRouter)));
 }
 
 class Thalorix extends StatelessWidget {
