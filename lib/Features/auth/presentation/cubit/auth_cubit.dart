@@ -40,15 +40,18 @@ Future<void> login() async {
     (failure) {
       emit(AuthError(failure.message));
     },
-    (user) async {
-    
-      await CacheHelper.saveToken(user.accessToken);
+    (loginResponse) async {
+      
+      await CacheHelper.saveToken(loginResponse.accessToken);
+      await CacheHelper.saveName(loginResponse.user.name);
 
       emit(AuthSuccess(
         process: AuthProcess.login,
         message: "Login successful",
       ));
     },
+
+
   );
 }
   Future<void> signUp({required String email}) async {

@@ -13,13 +13,19 @@ class CacheHelper {
     await prefs.setString('token', token);
   }
 
-
   static String? getToken() {
     return prefs.getString('token');
   }
 
-
-  static Future<void> clearToken() async {
-    await prefs.remove('token');
+  static Future<void> saveName(String name) async {
+    await prefs.setString('name', name);
   }
-}
+
+  static String? getName() {
+    return prefs.getString('name');
+  }
+
+  static Future<void> clearAll() async {
+    await prefs.clear();
+  }
+}

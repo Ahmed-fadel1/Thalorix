@@ -12,6 +12,10 @@ import 'package:thalorix_app/Features/home/presentation/widgets/bottom_nav_bar.d
 import 'package:thalorix_app/Features/marketplace/presentation/pages/market_Place_view.dart';
 import 'package:thalorix_app/Features/splash/presentation/splash_view.dart';
 import 'package:thalorix_app/Features/profile/presentation/edit_profile_screen.dart';
+import 'package:thalorix_app/Features/auth/data/data_sources/otp_remote_data_source.dart';
+import 'package:thalorix_app/Features/auth/data/repositories/otp_repository_impl.dart';
+import 'package:thalorix_app/Features/auth/domain/usecases/verify_otp_usecase.dart';
+import 'package:thalorix_app/Features/auth/domain/usecases/resend_otp_usecase.dart';
 
 class Routes {
   static const String login = '/login';
@@ -42,10 +46,16 @@ class AppRouter {
       case Routes.verification:
         return MaterialPageRoute(
           settings: settings,
-          builder: (_) => BlocProvider(
-            create: (context) => OtpCubit()..startTimer(),
-            child: const Verifiction(),
-          ),
+          builder: (_) {
+            final otpRepo = OtpRepositoryImpl(OtpRemoteDataSource());
+            return BlocProvider(
+              create: (context) => OtpCubit(
+                VerifyOtpUseCase(otpRepo),
+                ResendOtpUseCase(otpRepo),
+              )..startTimer(),
+              child: const Verifiction(),
+            );
+          },
         );
       case Routes.forgotPassword:
         return MaterialPageRoute(settings: settings, builder: (_) => const ForgetPasswordScreen());
