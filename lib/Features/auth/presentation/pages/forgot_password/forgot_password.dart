@@ -194,13 +194,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               ),
             );
           } else {
-           
             if (_selectedOption == 'Email') {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const EmailScreen(),
-                ),
+                MaterialPageRoute(builder: (context) => const EmailScreen()),
               );
             } else if (_selectedOption == 'phone') {
               Navigator.pushReplacement(
@@ -210,7 +207,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 ),
               );
             }
-           
           }
         },
         style: ElevatedButton.styleFrom(
