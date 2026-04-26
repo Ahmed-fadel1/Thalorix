@@ -4,6 +4,8 @@ import 'package:thalorix_app/Features/auth/presentation/pages/login/login_view.d
 import 'package:thalorix_app/Features/auth/presentation/pages/SignUp/signup_view.dart';
 import 'package:thalorix_app/Features/auth/presentation/pages/verifiction/Verifiction.dart';
 import 'package:thalorix_app/Features/chats/presentation/chats_screen.dart';
+import 'package:thalorix_app/Features/code_generation/presentation/code_generation_progress_page.dart';
+import 'package:thalorix_app/Features/code_generation/presentation/code_generation_view.dart';
 import 'package:thalorix_app/Features/community/presentation/views/community_view.dart';
 import 'package:thalorix_app/Features/home/presentation/home_view.dart';
 import 'package:thalorix_app/Features/home/presentation/widgets/bottom_nav_bar.dart';
@@ -37,6 +39,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const SignupView());
       case Routes.splash:
         return MaterialPageRoute(builder: (_) => const SplashView());
+      case Routes.codeGenerate:
+        return MaterialPageRoute(builder: (_) => const CodeGenerationView());
+      case Routes.codeGenerateprogress:
+        return MaterialPageRoute(
+          builder: (_) => const CodeGenerationProgressPage(),
+        );
       case Routes.verification:
         return MaterialPageRoute(builder: (_) => const Verifiction());
       case Routes.forgotPassword:
@@ -45,10 +53,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const MarketPlaceView());
       case Routes.editProfile:
         return MaterialPageRoute(builder: (_) => const EditProfileScreen());
-        case Routes.ChatsScreen:
+      case Routes.ChatsScreen:
         return MaterialPageRoute(builder: (_) => const ChatsScreen());
-        case Routes.community:
-        return MaterialPageRoute(builder: (_) =>const CommunityView());
+      case Routes.community:
+        return MaterialPageRoute(builder: (_) => const CommunityView());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
