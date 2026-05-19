@@ -9,11 +9,13 @@ import 'package:thalorix_app/Features/chats/presentation/chats_screen.dart';
 import 'package:thalorix_app/Features/code_generation/presentation/code_generation_progress_page.dart';
 import 'package:thalorix_app/Features/code_generation/presentation/code_generation_view.dart';
 import 'package:thalorix_app/Features/community/presentation/views/community_view.dart';
-import 'package:thalorix_app/Features/home/presentation/home_view.dart';
 import 'package:thalorix_app/Features/home/presentation/widgets/bottom_nav_bar.dart';
 import 'package:thalorix_app/Features/marketplace/presentation/pages/market_Place_view.dart';
+import 'package:thalorix_app/Features/profile/domain/repo/user_repo.dart';
+import 'package:thalorix_app/Features/profile/presentation/cubit/cubit/user_update_cubit.dart';
 import 'package:thalorix_app/Features/splash/presentation/splash_view.dart';
 import 'package:thalorix_app/Features/profile/presentation/edit_profile_screen.dart';
+import 'package:thalorix_app/core/cache/cache_helper.dart';
 
 class Routes {
   static const String login = '/login';
@@ -25,7 +27,7 @@ class Routes {
   static const String verification = '/verifiction';
   static const String forgotPassword = '/forgotPassword';
   static const String editProfile = '/editProfile';
-  static const String ChatsScreen = '/ChatsScreen';
+  static const String chatsScreen = '/ChatsScreen';
   static const String marketPlace = '/marketPlace';
   static const String community = '/community';
 }
@@ -68,10 +70,25 @@ class AppRouter {
           settings: settings,
           builder: (_) => const MarketPlaceView(),
         );
+      case Routes.codeGenerate:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const CodeGenerationView(),
+        );
+      case Routes.codeGenerateprogress:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const CodeGenerationProgressPage(),
+        );
       case Routes.editProfile:
-        return MaterialPageRoute(builder: (_) => const EditProfileScreen());
-      case Routes.ChatsScreen:
-        return MaterialPageRoute(builder: (_) => const ChatsScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => UserCubit(UserRepository()),
+            child: EditProfileScreen(userId: CacheHelper.getUserId() ?? ''),
+          ),
+        );
+      case Routes.chatsScreen:
+        return MaterialPageRoute(builder: (_) => ChatsScreen());
       case Routes.community:
         return MaterialPageRoute(builder: (_) => const CommunityView());
       default:

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:thalorix_app/core/utils/Colors/app_colors.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -19,19 +18,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      leading:leading != null ? leading : null,
+      leading: leading != null ? leading : null,
       backgroundColor: Colors.white,
       elevation: 0,
-      centerTitle: centerTitle ,
+      centerTitle: centerTitle,
       title: Text(
         title,
         style: const TextStyle(
           color: Color(0xFF0D3B40),
           fontWeight: FontWeight.bold,
           fontSize: 20,
-
         ),
-        
       ),
       actions: action != null ? [action!] : null,
       iconTheme: const IconThemeData(color: Color(0xFF0D3B40), size: 25),
