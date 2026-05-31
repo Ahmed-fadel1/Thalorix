@@ -11,7 +11,7 @@ class OtpRemoteDataSource {
     return await DioHelper.postData(
       url: ApiEndpoints.verifyOtp,
       data: {"email": email, "code": code.toString(),
-      "type": "phone_verification",
+      //"type": "phone_verification",
       },
     
       headers: {
