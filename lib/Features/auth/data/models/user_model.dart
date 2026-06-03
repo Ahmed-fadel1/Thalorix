@@ -2,7 +2,6 @@ class UserModel {
   final String id;
   final String name;
   final String email;
-
   final String role;
   final bool isVerified;
 
@@ -13,16 +12,24 @@ class UserModel {
     required this.role,
     required this.isVerified,
   });
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    final Map<String, dynamic> data = json['data'] ?? json['user'] ?? json;
 
+  factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: (data['_id'] ?? data['id'] ?? '').toString(),
-      name: data['name'] ?? '',
-      email: data['email'] ?? '',
-      role: data['role'] ?? 'user',
-      accessToken: json['accessToken'] ?? '',
-      refreshToken: json['refreshToken'] ?? '',
+      id: json['id']?.toString() ?? '',
+      name: json['name'] ?? '',
+      email: json['email'] ?? '',
+      role: json['role'] ?? '',
+      isVerified: json['isVerified'] ?? false,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'role': role,
+      'isVerified': isVerified,
+    };
   }
 }

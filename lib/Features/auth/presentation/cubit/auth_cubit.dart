@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:thalorix_app/Features/auth/data/models/user_model.dart';
 import 'package:thalorix_app/Features/auth/domain/usecases/sign_up_usecase.dart';
 import 'package:thalorix_app/Features/auth/presentation/cubit/auth_state.dart';
 import 'package:thalorix_app/Features/auth/domain/usecases/login_usecase.dart';
@@ -38,7 +39,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthError(failure.message));
       },
       (loginResponse) async {
-        await CacheHelper.saveUserId(user.id);
+        await CacheHelper.saveUserId(loginResponse.user.id);
         await CacheHelper.saveToken(loginResponse.accessToken);
         await CacheHelper.saveName(loginResponse.user.name);
 
