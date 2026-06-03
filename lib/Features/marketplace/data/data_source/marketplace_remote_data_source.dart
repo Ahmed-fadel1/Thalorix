@@ -44,7 +44,7 @@ class MarketplaceRemoteDataSourceImpl implements MarketplaceRemoteDataSource {
       },
     );
 
-    // Handle both List and Map responses from the API
+
     final dynamic responseData = response.data;
     final List data;
     if (responseData is List) {
@@ -64,7 +64,7 @@ class MarketplaceRemoteDataSourceImpl implements MarketplaceRemoteDataSource {
       url: '${ApiEndpoints.templates}/$templateId',
     );
 
-    // Handle both direct object and wrapped object responses
+  
     final dynamic responseData = response.data;
     if (responseData is Map<String, dynamic>) {
       if (responseData.containsKey('data') && responseData['data'] is Map) {

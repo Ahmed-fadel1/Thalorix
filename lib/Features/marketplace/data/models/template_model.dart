@@ -30,7 +30,7 @@ class TemplateModel extends TemplateEntity {
       title: json['title'] ?? '',
       description: json['description'] ?? '',
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
-      thumbnail: json['thumbnail'] ?? json['fileUrl'],
+      thumbnail: json['image'] ?? json['thumbnail'] ?? json['fileUrl'],
       categoryId: catId,
       categoryName: catName,
       status: json['status'],

@@ -9,23 +9,33 @@ import 'package:thalorix_app/core/cache/cache_helper.dart';
 import 'package:thalorix_app/core/utils/router/app_router.dart';
 
 import 'package:thalorix_app/core/network/dio_helper.dart';
+import 'package:thalorix_app/Features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:thalorix_app/Features/cart/dependency_injection/cart_di.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init(); 
   DioHelper.init();
   final AppRouter myRouter = AppRouter();
-  runApp(BlocProvider(
-    create: (context) {
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthCubit>(
+          create: (context) {
             final repo = AuthRepositoryImpl(AuthRemoteDataSource());
-
-      return AuthCubit(
-        SignUpUseCase(repo),
-        LoginUseCase(repo),
-      );
-
-    },
-    child: Thalorix(appRouter: myRouter)));
+            return AuthCubit(
+              SignUpUseCase(repo),
+              LoginUseCase(repo),
+            );
+          },
+        ),
+        BlocProvider<CartCubit>(
+          create: (context) => CartDI.provideCartCubit()..getMyOrders(),
+        ),
+      ],
+      child: Thalorix(appRouter: myRouter),
+    ),
+  );
 }
 
 class Thalorix extends StatelessWidget {

@@ -13,7 +13,7 @@ class DetailsHeader extends StatelessWidget {
     required this.price,
   });
 
-  /// Same fallback logic as ProductCard — uses AppImages.placeholderTemplate.
+  
   Widget _buildProductImage(String? path) {
     if (path == null || path.isEmpty) {
       return Image.asset(

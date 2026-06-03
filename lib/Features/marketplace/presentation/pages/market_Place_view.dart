@@ -9,6 +9,7 @@ import 'package:thalorix_app/Features/marketplace/presentation/widgets/product_c
 import 'package:thalorix_app/Features/marketplace/presentation/widgets/row_filter_categories.dart';
 import 'package:thalorix_app/core/utils/Colors/app_colors.dart';
 import 'package:thalorix_app/core/widgets/custom_app_bar.dart';
+import 'package:thalorix_app/Features/cart/presentation/widgets/cart_badge_widget.dart';
 
 class MarketPlaceView extends StatelessWidget {
   const MarketPlaceView({super.key});
@@ -53,10 +54,7 @@ class _MarketPlaceViewBodyState extends State<MarketPlaceViewBody> {
               CustomAppBar(
                 leading: const Icon(Icons.store_rounded),
                 title: 'Marketplace',
-                action: IconButton(
-                  icon: const Icon(Icons.shopping_cart_outlined),
-                  onPressed: () {},
-                ),
+                action: const CartBadgeWidget(),
               ),
               Divider(
                 thickness: 1,
@@ -111,7 +109,7 @@ class _MarketPlaceViewBodyState extends State<MarketPlaceViewBody> {
                         ),
                       );
                     } else if (state is MarketplaceSuccess) {
-                      // Local search filtering (server already filtered by category)
+                      // Local search filtering 
                       final filteredTemplates = state.templates.where((t) {
                         final matchesSearch = _searchQuery.isEmpty ||
                             t.title

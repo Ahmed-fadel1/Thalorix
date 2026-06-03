@@ -17,12 +17,9 @@ class ProductCard extends StatelessWidget {
     required this.onpressed,
   });
 
-  /// Builds the appropriate image widget with automatic placeholder fallback.
-  ///
-  /// When the backend starts providing real URLs, this method will
-  /// automatically display them — no code changes needed.
+  
   Widget _buildProductImage(String? path) {
-    // Null or empty → placeholder
+   
     if (path == null || path.isEmpty) {
       return Image.asset(
         AppImages.placeholderTemplate,
@@ -31,7 +28,7 @@ class ProductCard extends StatelessWidget {
       );
     }
 
-    // Full URL
+    
     if (path.startsWith('http://') || path.startsWith('https://')) {
       return Image.network(
         path,
@@ -45,7 +42,7 @@ class ProductCard extends StatelessWidget {
       );
     }
 
-    // Server-relative path (e.g. /uploads/img.png)
+    
     if (path.startsWith('/')) {
       final fullUrl = 'http://10.0.2.2:5000$path';
       return Image.network(
@@ -60,7 +57,7 @@ class ProductCard extends StatelessWidget {
       );
     }
 
-    // Local asset path
+  
     if (path.startsWith('assets/')) {
       return Image.asset(
         path,
@@ -74,7 +71,7 @@ class ProductCard extends StatelessWidget {
       );
     }
 
-    // Anything else → placeholder
+  
     return Image.asset(
       AppImages.placeholderTemplate,
       width: double.infinity,

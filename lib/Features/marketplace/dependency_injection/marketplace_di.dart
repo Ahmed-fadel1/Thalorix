@@ -7,21 +7,18 @@ import 'package:thalorix_app/Features/marketplace/domain/use_cases/get_templates
 import 'package:thalorix_app/Features/marketplace/presentation/cubit/marketplace_cubit.dart';
 import 'package:thalorix_app/Features/marketplace/presentation/cubit/template_details_cubit.dart';
 
-/// Lightweight dependency injection for the Marketplace feature.
-///
-/// Centralises object creation so the UI never instantiates
-/// data-layer classes directly.
+
 class MarketplaceDI {
   MarketplaceDI._();
 
-  // ── Data ──────────────────────────────────────────────
+  //  Data 
   static MarketplaceRemoteDataSource _remoteDataSource() =>
       MarketplaceRemoteDataSourceImpl();
 
   static MarketplaceRepository _repository() =>
       MarketplaceRepositoryImpl(_remoteDataSource());
 
-  // ── Use Cases ─────────────────────────────────────────
+  // Use Cases
   static GetCategoriesUseCase _getCategoriesUseCase() =>
       GetCategoriesUseCase(_repository());
 
@@ -31,7 +28,7 @@ class MarketplaceDI {
   static GetTemplateDetailsUseCase _getTemplateDetailsUseCase() =>
       GetTemplateDetailsUseCase(_repository());
 
-  // ── Cubits (public) ───────────────────────────────────
+  // Cubits (public) 
   static MarketplaceCubit provideMarketplaceCubit() => MarketplaceCubit(
         getCategoriesUseCase: _getCategoriesUseCase(),
         getTemplatesUseCase: _getTemplatesUseCase(),

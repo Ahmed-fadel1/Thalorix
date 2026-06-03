@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thalorix_app/Features/auth/presentation/cubit/otp_cubit/otp_cubit.dart';
@@ -16,6 +17,7 @@ import 'package:thalorix_app/Features/auth/data/data_sources/otp_remote_data_sou
 import 'package:thalorix_app/Features/auth/data/repositories/otp_repository_impl.dart';
 import 'package:thalorix_app/Features/auth/domain/usecases/verify_otp_usecase.dart';
 import 'package:thalorix_app/Features/auth/domain/usecases/resend_otp_usecase.dart';
+import 'package:thalorix_app/Features/cart/presentation/pages/cart_screen.dart';
 
 class Routes {
   static const String login = '/login';
@@ -30,6 +32,8 @@ class Routes {
   static const String ChatsScreen = '/ChatsScreen';
   static const String marketPlace = '/marketPlace';
   static const String community = '/community';
+  static const String cart = '/cart';
+ 
 }
 
 class AppRouter {
@@ -67,6 +71,9 @@ class AppRouter {
         return MaterialPageRoute(settings: settings, builder: (_) => const ChatsScreen());
         case Routes.community:
         return MaterialPageRoute(settings: settings, builder: (_) =>const CommunityView());
+      case Routes.cart:
+        return MaterialPageRoute(settings: settings, builder: (_) => const CartScreen());
+        
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

@@ -13,7 +13,7 @@ class MarketplaceCubit extends Cubit<MarketplaceState> {
     required this.getTemplatesUseCase,
   }) : super(const MarketplaceInitial());
 
-  /// Loads both categories and all templates on first open.
+ 
   Future<void> getMarketplaceData() async {
     emit(const MarketplaceLoading());
 
@@ -36,9 +36,9 @@ class MarketplaceCubit extends Cubit<MarketplaceState> {
     );
   }
 
-  /// Fetches all templates (category = "All").
+ 
   Future<void> getTemplates() async {
-    // Preserve categories across reloads
+   
     final List<CategoryEntity> currentCategories =
         state is MarketplaceSuccess ? (state as MarketplaceSuccess).categories : <CategoryEntity>[];
 
@@ -54,7 +54,7 @@ class MarketplaceCubit extends Cubit<MarketplaceState> {
     );
   }
 
-  /// Fetches templates filtered by a specific category from the API.
+
   Future<void> getTemplatesByCategory(String categoryId) async {
     final List<CategoryEntity> currentCategories =
         state is MarketplaceSuccess ? (state as MarketplaceSuccess).categories : <CategoryEntity>[];
