@@ -8,7 +8,7 @@ class DioHelper {
   static void init() {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'http://192.168.1.9:5000/api/v1/',
+        baseUrl: "http://10.0.2.9:5000/api/v1/",
         receiveDataWhenStatusError: true,
         connectTimeout: const Duration(seconds: 20),
         receiveTimeout: const Duration(seconds: 20),
@@ -22,12 +22,13 @@ class DioHelper {
   static Future<Response> getData({
     required String url,
     Map<String, dynamic>? query,
+    Map<String, String>? headers,
   }) async {
     try {
       return await dio.get(
         url,
         queryParameters: query,
-        options: Options(headers: _headers()),
+        options: Options(headers: headers ?? _headers()),
       );
     } on DioException catch (e) {
       throw ErrorHandler.handle(e);
@@ -38,13 +39,14 @@ class DioHelper {
     required String url,
     Map<String, dynamic>? data,
     Map<String, dynamic>? query,
+    Map<String, String>? headers,
   }) async {
     try {
       return await dio.post(
         url,
         data: data,
         queryParameters: query,
-        options: Options(headers: _headers()),
+        options: Options(headers: headers ?? _headers()),
       );
     } on DioException catch (e) {
       throw ErrorHandler.handle(e);

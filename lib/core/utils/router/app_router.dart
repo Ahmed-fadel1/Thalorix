@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thalorix_app/Features/auth/presentation/cubit/otp_cubit/otp_cubit.dart';
@@ -15,6 +16,11 @@ import 'package:thalorix_app/Features/profile/domain/repo/user_repo.dart';
 import 'package:thalorix_app/Features/profile/presentation/cubit/cubit/user_update_cubit.dart';
 import 'package:thalorix_app/Features/splash/presentation/splash_view.dart';
 import 'package:thalorix_app/Features/profile/presentation/edit_profile_screen.dart';
+import 'package:thalorix_app/Features/auth/data/data_sources/otp_remote_data_source.dart';
+import 'package:thalorix_app/Features/auth/data/repositories/otp_repository_impl.dart';
+import 'package:thalorix_app/Features/auth/domain/usecases/verify_otp_usecase.dart';
+import 'package:thalorix_app/Features/auth/domain/usecases/resend_otp_usecase.dart';
+import 'package:thalorix_app/Features/cart/presentation/pages/cart_screen.dart';
 import 'package:thalorix_app/core/cache/cache_helper.dart';
 
 class Routes {
@@ -30,6 +36,7 @@ class Routes {
   static const String chatsScreen = '/ChatsScreen';
   static const String marketPlace = '/marketPlace';
   static const String community = '/community';
+  static const String cart = '/cart';
 }
 
 class AppRouter {
@@ -55,10 +62,15 @@ class AppRouter {
       case Routes.verification:
         return MaterialPageRoute(
           settings: settings,
-          builder: (_) => BlocProvider(
-            create: (context) => OtpCubit()..startTimer(),
-            child: const Verifiction(),
-          ),
+          builder: (_) {
+            final otpRepo = OtpRepositoryImpl(OtpRemoteDataSource());
+            return BlocProvider(
+              create: (context) =>
+                  OtpCubit(VerifyOtpUseCase(otpRepo), ResendOtpUseCase(otpRepo))
+                    ..startTimer(),
+              child: const Verifiction(),
+            );
+          },
         );
       case Routes.forgotPassword:
         return MaterialPageRoute(
@@ -91,6 +103,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => ChatsScreen());
       case Routes.community:
         return MaterialPageRoute(builder: (_) => const CommunityView());
+      case Routes.cart:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const CartScreen(),
+        );
+
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

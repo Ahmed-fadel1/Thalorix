@@ -1,4 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:thalorix_app/Features/auth/data/models/login_response_model.dart';
 import 'package:thalorix_app/Features/auth/data/models/user_model.dart';
 import 'package:thalorix_app/core/errors/failures.dart';
 import 'package:thalorix_app/Features/auth/data/data_sources/auth_remote_data_source.dart';
@@ -48,7 +50,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, UserModel>> login({
+  Future<Either<Failure, LoginResponseModel>> login({
     required String email,
     required String password,
   }) async {
@@ -65,9 +67,8 @@ class AuthRepositoryImpl implements AuthRepository {
         return Left(ServerFailure((data['message'] as List).join('\n')));
       }
 
-      final user = UserModel.fromJson(data);
-
-      return Right(user);
+      final loginResponse = LoginResponseModel.fromJson(data);
+      return Right(loginResponse);
     } catch (e) {
       if (e is Failure) {
         return Left(e);

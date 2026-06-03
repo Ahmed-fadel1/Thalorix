@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:thalorix_app/core/errors/failures.dart';
-import 'package:thalorix_app/core/network/dio_helper.dart';
-import 'package:thalorix_app/core/network/end_point.dart';
+import 'package:thalorix_app/Features/auth/domain/usecases/resend_otp_usecase.dart';
+import 'package:thalorix_app/Features/auth/domain/usecases/verify_otp_usecase.dart';
 import 'otp_state.dart';
 
 class OtpCubit extends Cubit<OtpState> {
-  OtpCubit() : super(OtpInitial());
+  final VerifyOtpUseCase verifyOtpUseCase;
+  final ResendOtpUseCase resendOtpUseCase;
+
+  OtpCubit(this.verifyOtpUseCase, this.resendOtpUseCase) : super(OtpInitial());
 
   static OtpCubit get(context) => BlocProvider.of(context);
 
@@ -49,44 +51,24 @@ class OtpCubit extends Cubit<OtpState> {
   Future<void> verifyOtp({required String email, required String code}) async {
     emit(OtpLoading());
 
-    try {
-      final response = await DioHelper.postData(
-        url: ApiEndpoints.verifyOtp,
-        data: {"email": email, "code": code},
-      );
+    final result = await verifyOtpUseCase(email: email, code: code, );
 
-      print("VERIFY RESPONSE: ${response.data}");
-
-      emit(OtpSuccess());
-    } catch (e) {
-      if (e is Failure) {
-        emit(OtpError(e.message));
-      } else {
-        emit(OtpError("Something went wrong"));
-      }
-    }
+    result.fold(
+      (failure) => emit(OtpError(failure.message)),
+      (success) => emit(OtpSuccess()),
+    );
   }
 
   Future<void> resendOtp(String email) async {
-    print("RESENDING OTP TO: $email"); 
-    try {
-      final response = await DioHelper.postData(
-        url: ApiEndpoints.resendOtp,
-        data: {
-          "email": email,
-          "type": "email_verification",
-        },
-      );
+    final result = await resendOtpUseCase(email: email);
 
-      print("RESEND RESPONSE: ${response.data}");
-      resetTimer();
-    } catch (e) {
-      print("RESEND ERROR: $e");
-      if (e is Failure) {
-        emit(OtpError(e.message));
-      } else {
-        emit(OtpError("Failed to resend OTP"));
-      }
-    }
+    result.fold(
+      (failure) => emit(OtpError(failure.message)),
+      (success) {
+        resetTimer();
+       
+      },
+    );
   }
 }
+

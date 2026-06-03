@@ -4,16 +4,14 @@ class UserModel {
   final String email;
 
   final String role;
-  final String accessToken;
-  final String refreshToken;
+  final bool isVerified;
 
   UserModel({
     required this.id,
     required this.name,
     required this.email,
     required this.role,
-    required this.accessToken,
-    required this.refreshToken,
+    required this.isVerified,
   });
   factory UserModel.fromJson(Map<String, dynamic> json) {
     final Map<String, dynamic> data = json['data'] ?? json['user'] ?? json;

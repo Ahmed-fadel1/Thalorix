@@ -37,9 +37,10 @@ class AuthCubit extends Cubit<AuthState> {
       (failure) {
         emit(AuthError(failure.message));
       },
-      (user) async {
+      (loginResponse) async {
         await CacheHelper.saveUserId(user.id);
-        await CacheHelper.saveToken(user.accessToken);
+        await CacheHelper.saveToken(loginResponse.accessToken);
+        await CacheHelper.saveName(loginResponse.user.name);
 
         emit(
           AuthSuccess(process: AuthProcess.login, message: "Login successful"),

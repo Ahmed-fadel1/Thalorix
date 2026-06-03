@@ -148,12 +148,15 @@ import 'package:thalorix_app/Features/home/presentation/widgets/build_activity_i
 import 'package:thalorix_app/Features/home/presentation/widgets/build_quick_access_card.dart';
 import 'package:thalorix_app/core/utils/Colors/app_colors.dart';
 import 'package:thalorix_app/core/utils/router/app_router.dart';
+import 'package:thalorix_app/core/cache/cache_helper.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody();
 
   @override
   Widget build(BuildContext context) {
+    String userName = CacheHelper.getName() ?? "User";
+
     return SafeArea(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -174,17 +177,17 @@ class HomeBody extends StatelessWidget {
                     const SizedBox(width: 15),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
-                          "Welcome, Alex",
-                          style: TextStyle(
+                          "Welcome, $userName",
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF0D3B40),
                           ),
                         ),
-                        SizedBox(height: 4),
-                        Text(
+                        const SizedBox(height: 4),
+                        const Text(
                           "</> Developer",
                           style: TextStyle(
                             fontSize: 12,
@@ -195,6 +198,7 @@ class HomeBody extends StatelessWidget {
                     ),
                   ],
                 ),
+
                 const CircleAvatar(
                   backgroundColor: AppColors.splashPrimary,
                   child: Icon(Icons.notifications, color: Colors.white),
