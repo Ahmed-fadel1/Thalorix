@@ -85,12 +85,14 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       'created_at': DateTime.now().toIso8601String(),
       'failed': false,
     };
-
+    print('📤 sender: ${widget.myId}');
+    print('📥 receiver: ${widget.receiverId}');
     setState(() => _messages.add(optimisticMsg));
     _controller.clear();
     _scrollToBottom();
 
     try {
+      // 2. بنبعت للسيرفر
       await _chatService.sendMessage(
         senderId: widget.myId,
         receiverId: widget.receiverId,

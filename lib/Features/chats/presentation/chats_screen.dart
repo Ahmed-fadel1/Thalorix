@@ -28,8 +28,14 @@ class _ChatsScreenState extends State<ChatsScreen> {
   Future<void> _loadUsers() async {
     try {
       final users = await UserRepository.getAllUsers();
+
+      // 👇 حط السطر ده
+      for (var u in users) {
+        print('👤 User: ${u.name} | ID: ${u.id}');
+      }
+
       setState(() {
-_users = users.where((u) => u.id != myId).toList();
+        _users = users.where((u) => u.id != myId).toList();
         _filteredUsers = _users;
         _isLoading = false;
       });
