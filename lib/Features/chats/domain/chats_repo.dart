@@ -37,19 +37,26 @@ class ChatService {
     required String otherUserId,
     required void Function(Map<String, dynamic>) onNewMessage,
   }) {
+    // ✅ channel خاص بكل محادثة
+    final ids = [myId, otherUserId]..sort();
+    final channelName = 'chat_${ids[0]}_${ids[1]}';
+
     return _supabase
-        .channel('chat_${myId}_$otherUserId')
+        .channel(channelName)
         .onPostgresChanges(
           event: PostgresChangeEvent.insert,
           schema: 'public',
           table: 'messages',
+          // ✅ فلترة على السيرفر — بس الرسايل اللي receiver_id = myId
           filter: PostgresChangeFilter(
-            type: PostgresChangeFilterType.eq,
+            type: PostgresChangeFilterType.eq, // ✅ كده
             column: 'receiver_id',
             value: myId,
           ),
           callback: (payload) {
             final msg = payload.newRecord;
+
+            // ✅ تأكيد إضافي إن الرسالة من الشخص ده بالتحديد
             if (msg['sender_id'] == otherUserId) {
               onNewMessage(msg);
             }

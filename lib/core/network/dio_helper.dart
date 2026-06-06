@@ -8,7 +8,7 @@ class DioHelper {
   static void init() {
     dio = Dio(
       BaseOptions(
-        baseUrl: "http://192.168.1.9:5000/api/v1/",
+        baseUrl: "http://10.0.2.2:5000/api/v1/",
         receiveDataWhenStatusError: true,
         connectTimeout: const Duration(seconds: 20),
         receiveTimeout: const Duration(seconds: 20),
