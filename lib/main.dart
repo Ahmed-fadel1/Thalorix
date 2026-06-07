@@ -9,7 +9,6 @@ import 'package:thalorix_app/Features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:thalorix_app/core/cache/cache_helper.dart';
 import 'package:thalorix_app/core/utils/constants/supabase_data.dart';
 import 'package:thalorix_app/core/utils/router/app_router.dart';
-
 import 'package:thalorix_app/core/network/dio_helper.dart';
 import 'package:thalorix_app/Features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:thalorix_app/Features/cart/dependency_injection/cart_di.dart';

@@ -30,10 +30,6 @@ class _ChatsScreenState extends State<ChatsScreen> {
       final users = await UserRepository.getAllUsers();
 
       if (!mounted) return;
-      // 👇 حط السطر ده
-      for (var u in users) {
-        print('👤 User: ${u.name} | ID: ${u.id}');
-      }
 
       setState(() {
         _users = users.where((u) => u.id != myId).toList();

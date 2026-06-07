@@ -4,8 +4,12 @@ class UserModel {
   final String email;
   final String role;
   final bool isVerified;
+  final String? phone;
+  final String? bio;
 
   UserModel({
+    this.bio,
+    this.phone,
     required this.id,
     required this.name,
     required this.email,
@@ -20,6 +24,8 @@ class UserModel {
       email: json['email'] ?? '',
       role: json['role'] ?? '',
       isVerified: json['isVerified'] ?? false,
+      phone: json['phone'] ?? null,
+      bio: json['bio'] ?? null,
     );
   }
 
@@ -30,6 +36,8 @@ class UserModel {
       'email': email,
       'role': role,
       'isVerified': isVerified,
+      'phone': phone,
+      'bio': bio,
     };
   }
 }

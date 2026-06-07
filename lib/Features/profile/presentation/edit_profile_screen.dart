@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thalorix_app/Features/profile/presentation/cubit/cubit/user_update_cubit.dart';
 import 'package:thalorix_app/Features/profile/presentation/cubit/cubit/user_update_state.dart';
+import 'package:thalorix_app/Features/profile/presentation/widgets/custom_field.dart';
+import 'package:thalorix_app/Features/security/presentation/security_settings_screen.dart';
 import 'package:thalorix_app/core/utils/Colors/app_colors.dart';
+import 'package:thalorix_app/core/utils/router/app_router.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final String userId;
@@ -17,8 +20,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _bioController = TextEditingController();
-
-  bool _developerMode = false;
 
   @override
   void initState() {
@@ -173,65 +174,56 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                 ),
                 const SizedBox(height: 30),
-                _buildField(
-                  "Full name",
-                  user?.name ?? "Loading...",
-                  _nameController,
+                CustomField(
+                  label: "Full name",
+                  hint: user?.name ?? "Loading...",
+                  controller: _nameController,
                 ),
                 const SizedBox(height: 12),
-                _buildField(
-                  "Email",
-                  user?.email ?? "Loading...",
-                  _emailController,
+                CustomField(
+                  label: "Email",
+                  hint: user?.email ?? "Loading...",
+                  controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 12),
-                _buildField(
-                  "Phone Number",
-                  "+20 1234567890",
-                  _phoneController,
+                CustomField(
+                  label: "Phone Number",
+                  hint: user?.phone ?? "Loading...",
+                  controller: _phoneController,
                   keyboardType: TextInputType.phone,
                 ),
                 const SizedBox(height: 20),
-                _buildField(
-                  "Bio",
-                  "UX Designer passionate about creating intuitive digital experiences...",
-                  _bioController,
-                  maxLines: 4,
+                CustomField(
+                  label: "Bio",
+                  hint: user?.bio ?? "Loading...",
+                  controller: _bioController,
+                  maxLines: 3,
                 ),
-                const SizedBox(height: 20),
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: AppColors.border,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Row(
-                        children: [
-                          Icon(Icons.code),
-                          SizedBox(width: 8),
-                          Text(
-                            "Developer Profile",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: _developerMode,
-                            onChanged: (val) {
-                              setState(() => _developerMode = val ?? false);
-                            },
-                          ),
-                          const Text("Enable developer features"),
-                        ],
-                      ),
-                    ],
+
+                const SizedBox(height: 12),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.security);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: AppColors.border,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Row(
+                      children: [
+                        Icon(Icons.security),
+                        SizedBox(width: 8),
+                        Text(
+                          "Security Settings",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Spacer(),
+                        Icon(Icons.arrow_forward_ios, size: 16),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -239,40 +231,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ),
         );
       },
-    );
-  }
-
-  Widget _buildField(
-    String label,
-    String hint,
-    TextEditingController controller, {
-    int maxLines = 1,
-    TextInputType keyboardType = TextInputType.text,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label),
-        const SizedBox(height: 8),
-        TextField(
-          controller: controller,
-          maxLines: maxLines,
-          keyboardType: keyboardType,
-          decoration: InputDecoration(
-            hintText: hint,
-            hintStyle: TextStyle(color: AppColors.welcome_text),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.border, width: 2),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.border, width: 2),
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
