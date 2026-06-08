@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thalorix_app/Features/auth/presentation/cubit/otp_cubit/otp_cubit.dart';
@@ -14,6 +13,9 @@ import 'package:thalorix_app/Features/home/presentation/widgets/bottom_nav_bar.d
 import 'package:thalorix_app/Features/marketplace/presentation/pages/market_Place_view.dart';
 import 'package:thalorix_app/Features/profile/domain/repo/user_repo.dart';
 import 'package:thalorix_app/Features/profile/presentation/cubit/cubit/user_update_cubit.dart';
+import 'package:thalorix_app/Features/security/domain/security_repo.dart';
+import 'package:thalorix_app/Features/security/presentation/bloc/cubit/security_settings_cubit.dart';
+import 'package:thalorix_app/Features/security/presentation/security_settings_screen.dart';
 import 'package:thalorix_app/Features/splash/presentation/splash_view.dart';
 import 'package:thalorix_app/Features/profile/presentation/edit_profile_screen.dart';
 import 'package:thalorix_app/Features/auth/data/data_sources/otp_remote_data_source.dart';
@@ -40,9 +42,11 @@ class Routes {
   static const String community = '/community';
   static const String cart = '/cart';
   static const String checkMyOrder = '/checkMyOrder';
+  static const String security = '/security';
 }
 
 class AppRouter {
+  static String? userId = CacheHelper.getUserId();
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.login:
@@ -99,13 +103,26 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (_) => UserCubit(UserRepository()),
-            child: EditProfileScreen(userId: CacheHelper.getUserId() ?? ''),
+            child: EditProfileScreen(userId: userId ?? " "),
           ),
         );
       case Routes.chatsScreen:
         return MaterialPageRoute(builder: (_) => ChatsScreen());
       case Routes.community:
         return MaterialPageRoute(builder: (_) => const CommunityView());
+      case Routes.security:
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => UserCubit(UserRepository())),
+              BlocProvider(
+                create: (_) => SecuritySettingsCubit(SecurityRepo()),
+              ),
+            ],
+
+            child: SecuritySettingsScreen(userId: userId ?? " "),
+          ),
+        );
       case Routes.cart:
         return MaterialPageRoute(
           settings: settings,

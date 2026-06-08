@@ -12,7 +12,6 @@ class UserRepository {
     final body = <String, dynamic>{};
 
     print('👤 USER ID: $userId');
-    print('📦 BODY: $body');
 
     if (name != null && name.isNotEmpty) body['name'] = name;
     if (email != null && email.isNotEmpty) body['email'] = email;
