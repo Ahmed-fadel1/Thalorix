@@ -1,0 +1,38 @@
+* [33m6c1f507[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfix/cart-backend-refactor[m[33m, [m[1;31morigin/finished--chats-and-profile[m[33m, [m[1;32mfinished--chats-and-profile[m[33m)[m Update generated files
+* [33ma19b3fa[m done merging semi-final-touches , finished--chats-and-profile
+*   [33m73ccba3[m Merge branch 'semi-final-touches' into finished--chats-and-profile
+[32m|[m[33m\[m  
+[32m|[m * [33m0552ee2[m[33m ([m[1;31morigin/semi-final-touches[m[33m, [m[1;32msemi-final-touches[m[33m)[m Describe your changes
+[32m|[m * [33mc92c2e5[m[33m ([m[1;31mbackup/backup-final[m[33m)[m Final updates before completion
+[32m|[m * [33me9d8b81[m[33m ([m[1;31morigin/with_domain_layer_phase2[m[33m, [m[1;32mwith_domain_layer_phase2[m[33m)[m fix auth flow and verify is done  and login and sign up
+* [33m|[m [33m1584878[m finished chats,profile update
+* [33m|[m [33mbba464a[m[33m ([m[1;31morigin/code-generation-ui[m[33m)[m fix routing
+[34m|[m[33m\[m[33m|[m 
+[34m|[m * [33mcdf0d47[m[33m ([m[1;31morigin/with_domain_layer[m[33m, [m[1;32mwith_domain_layer[m[33m)[m add OTP flow and verification
+[34m|[m * [33m3569126[m Add auth module
+* [35m|[m [33mf0752ef[m .
+[35m|[m[35m/[m  
+* [33mbb55417[m[33m ([m[1;31morigin/semi-final[m[33m, [m[1;32msemi-final[m[33m)[m Semi final version
+* [33meb379c4[m[33m ([m[1;32mcode-generation-ui[m[33m)[m restore images
+* [33mc172475[m restore custom_app_bar shared widget
+* [33m58c5646[m restore marketplace and community features
+*   [33md3561de[m Merge branch 'home-ui' of https://github.com/Ahmed-fadel1/Thalorix into code-generation-ui
+[36m|[m[1;31m\[m  
+[36m|[m * [33m6a3ee35[m[33m ([m[1;31morigin/home-ui[m[33m)[m Added new UI in home screen
+* [1;31m|[m [33m93647d4[m merge branchs
+* [1;31m|[m   [33m2fd016d[m Merge branch 'auth-feature' into code-generation-u
+[1;32m|[m[1;33m\[m [1;31m\[m  
+[1;32m|[m * [1;31m|[m [33m9ec5693[m[33m ([m[1;31morigin/auth-feature[m[33m, [m[1;32mauth-feature[m[33m)[m fix: update reset password validation
+[1;32m|[m * [1;31m|[m [33mf9db78c[m initial commit
+[1;32m|[m * [1;31m|[m [33ma2e2165[m Fix forgot password page
+* [1;33m|[m [1;31m|[m [33mc408614[m added 2 code generation pages home , progress
+[1;31m|[m [1;33m|[m[1;31m/[m  
+[1;31m|[m[1;31m/[m[1;33m|[m   
+* [1;33m|[m [33mfd95d25[m Added Home Page
+* [1;33m|[m [33mf1a8e93[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m fix some navigation problems
+[1;33m|[m[1;33m/[m  
+* [33mf284939[m fix auth flow and routing
+* [33m4b43809[m auth pages done
+* [33m7dfc710[m[33m ([m[1;32mmain[m[33m)[m Added Third page view , navigation , router
+* [33m264294c[m first 3 screens
+* [33m00c3cd3[m first commit

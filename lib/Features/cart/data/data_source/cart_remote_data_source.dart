@@ -4,6 +4,7 @@ import 'package:thalorix_app/core/errors/error_handler.dart';
 import 'package:thalorix_app/core/network/dio_helper.dart';
 import 'package:thalorix_app/core/network/end_point.dart';
 import '../models/order_model.dart';
+import '../../domain/entities/order_entity.dart';
 
 abstract class CartRemoteDataSource {
   Future<List<OrderModel>> getMyOrders();
@@ -13,9 +14,15 @@ abstract class CartRemoteDataSource {
     required int quantity,
   });
 
+  Future<OrderModel> createOrder({
+    required List<CartItemEntity> items,
+  });
+
   Future<void> deleteOrder(String orderId);
 
   Future<void> completeOrder(String orderId);
+
+  Future<String> createCheckoutSession(String orderId);
 }
 
 class CartRemoteDataSourceImpl implements CartRemoteDataSource {
@@ -90,6 +97,62 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
         data: {},
         options: Options(headers: _headers()),
       );
+    } on DioException catch (e) {
+      throw ErrorHandler.handle(e);
+    }
+  }
+
+  @override
+  Future<OrderModel> createOrder({
+    required List<CartItemEntity> items,
+  }) async {
+    try {
+      final response = await DioHelper.postData(
+        url: ApiEndpoints.orders,
+        data: {
+          'items': items.map((item) => {
+            'template': item.template.id,
+            'templateId': item.template.id,
+            'quantity': item.quantity,
+            'price': item.template.price,
+          }).toList(),
+        },
+      );
+
+      final dynamic responseData = response.data;
+      if (responseData is Map<String, dynamic>) {
+        if (responseData.containsKey('data') && responseData['data'] is Map) {
+          return OrderModel.fromJson(responseData['data']);
+        }
+        return OrderModel.fromJson(responseData);
+      }
+      throw Exception('Unexpected response format');
+    } on DioException catch (e) {
+      throw ErrorHandler.handle(e);
+    }
+  }
+
+  @override
+  Future<String> createCheckoutSession(String orderId) async {
+    try {
+      final response = await DioHelper.postData(
+        url: ApiEndpoints.createCheckoutSession,
+        data: {
+          'orderId': orderId,
+          'successUrl': 'https://www.facebook.com',
+          'cancelUrl': 'https://www.google.com',
+        },
+      );
+      final dynamic responseData = response.data;
+      if (responseData is Map<String, dynamic>) {
+        final url = responseData['url'] ??
+            responseData['sessionUrl'] ??
+            responseData['data']?['url'];
+        if (url != null && url is String && url.isNotEmpty) {
+          return url;
+        }
+      }
+      throw Exception('Invalid Stripe checkout response: $responseData');
     } on DioException catch (e) {
       throw ErrorHandler.handle(e);
     }

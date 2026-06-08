@@ -7,4 +7,5 @@ class ApiEndpoints {
    static const String templates = 'templates';
    static const String orders = 'orders';
    static const String myOrders = 'orders/my-orders';
+   static const String createCheckoutSession = 'stripe/create-checkout-session';
 }

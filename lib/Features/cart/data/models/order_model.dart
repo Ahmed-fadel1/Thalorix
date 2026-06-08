@@ -18,19 +18,27 @@ class CartTemplateModel extends CartTemplate {
       thumbnail: json['image'] ?? json['thumbnail'] ?? json['fileUrl'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'title': title,
+      'description': description,
+      'price': price,
+      'image': thumbnail,
+    };
+  }
 }
 
-class OrderModel extends OrderEntity {
-  const OrderModel({
+class CartItemModel extends CartItemEntity {
+  const CartItemModel({
     required super.id,
-    required super.price,
-    required super.quantity,
-    required super.orderStatus,
-    required super.paymentStatus,
     required super.template,
+    required super.quantity,
+    required super.price,
   });
 
-  factory OrderModel.fromJson(Map<String, dynamic> json) {
+  factory CartItemModel.fromJson(Map<String, dynamic> json) {
     CartTemplateModel templateModel;
     final templateData = json['template'];
 
@@ -54,13 +62,74 @@ class OrderModel extends OrderEntity {
       );
     }
 
+    return CartItemModel(
+      id: json['_id'] ?? '',
+      template: templateModel,
+      quantity: json['quantity'] ?? 1,
+      price: (json['price'] as num?)?.toDouble() ?? 0.0,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'template': {
+        '_id': template.id,
+        'title': template.title,
+        'description': template.description,
+        'price': template.price,
+        'image': template.thumbnail,
+      },
+      'quantity': quantity,
+      'price': price,
+    };
+  }
+}
+
+class OrderModel extends OrderEntity {
+  const OrderModel({
+    required super.id,
+    required super.totalAmount,
+    required super.orderStatus,
+    required super.paymentStatus,
+    required super.items,
+  });
+
+  factory OrderModel.fromJson(Map<String, dynamic> json) {
+    List<CartItemModel> itemsList = [];
+    if (json['items'] != null && json['items'] is List) {
+      itemsList = (json['items'] as List)
+          .map((i) => CartItemModel.fromJson(i))
+          .toList();
+    }
+
     return OrderModel(
       id: json['_id'] ?? '',
-      price: (json['price'] as num?)?.toDouble() ?? 0.0,
-      quantity: json['quantity'] ?? 1,
+      totalAmount: (json['totalAmount'] as num?)?.toDouble() ?? 0.0,
       orderStatus: json['orderStatus'] ?? 'pending',
       paymentStatus: json['paymentStatus'] ?? 'unpaid',
-      template: templateModel,
+      items: itemsList,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'totalAmount': totalAmount,
+      'orderStatus': orderStatus,
+      'paymentStatus': paymentStatus,
+      'items': items.map((item) => {
+        '_id': item.id,
+        'template': {
+          '_id': item.template.id,
+          'title': item.template.title,
+          'description': item.template.description,
+          'price': item.template.price,
+          'image': item.template.thumbnail,
+        },
+        'quantity': item.quantity,
+        'price': item.price,
+      }).toList(),
+    };
   }
 }

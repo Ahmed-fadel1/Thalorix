@@ -21,6 +21,8 @@ import 'package:thalorix_app/Features/auth/data/repositories/otp_repository_impl
 import 'package:thalorix_app/Features/auth/domain/usecases/verify_otp_usecase.dart';
 import 'package:thalorix_app/Features/auth/domain/usecases/resend_otp_usecase.dart';
 import 'package:thalorix_app/Features/cart/presentation/pages/cart_screen.dart';
+import 'package:thalorix_app/Features/cart/presentation/pages/check_my_order_screen.dart';
+import 'package:thalorix_app/Features/cart/domain/entities/order_entity.dart';
 import 'package:thalorix_app/core/cache/cache_helper.dart';
 
 class Routes {
@@ -37,6 +39,7 @@ class Routes {
   static const String marketPlace = '/marketPlace';
   static const String community = '/community';
   static const String cart = '/cart';
+  static const String checkMyOrder = '/checkMyOrder';
 }
 
 class AppRouter {
@@ -107,6 +110,12 @@ class AppRouter {
         return MaterialPageRoute(
           settings: settings,
           builder: (_) => const CartScreen(),
+        );
+      case Routes.checkMyOrder:
+        final order = settings.arguments as OrderEntity;
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => CheckMyOrderScreen(order: order),
         );
 
       default:

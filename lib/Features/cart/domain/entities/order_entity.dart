@@ -19,30 +19,44 @@ class CartTemplate extends Equatable {
   List<Object?> get props => [id, title, description, price, thumbnail];
 }
 
+class CartItemEntity extends Equatable {
+  final String id;
+  final CartTemplate template;
+  final int quantity;
+  final double price;
+
+  const CartItemEntity({
+    required this.id,
+    required this.template,
+    required this.quantity,
+    required this.price,
+  });
+
+  @override
+  List<Object?> get props => [id, template, quantity, price];
+}
+
 class OrderEntity extends Equatable {
   final String id;
-  final double price;
-  final int quantity;
+  final double totalAmount;
   final String orderStatus;
   final String paymentStatus;
-  final CartTemplate template;
+  final List<CartItemEntity> items;
 
   const OrderEntity({
     required this.id,
-    required this.price,
-    required this.quantity,
+    required this.totalAmount,
     required this.orderStatus,
     required this.paymentStatus,
-    required this.template,
+    required this.items,
   });
 
   @override
   List<Object?> get props => [
         id,
-        price,
-        quantity,
+        totalAmount,
         orderStatus,
         paymentStatus,
-        template,
+        items,
       ];
 }

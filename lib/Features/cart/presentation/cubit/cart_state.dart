@@ -13,18 +13,18 @@ class CartInitial extends CartState {}
 class CartLoading extends CartState {}
 
 class CartLoaded extends CartState {
-  final List<OrderEntity> orders;
+  final List<CartItemEntity> items;
   final double totalPrice;
   final int cartCount;
 
   const CartLoaded({
-    required this.orders,
+    required this.items,
     required this.totalPrice,
     required this.cartCount,
   });
 
   @override
-  List<Object?> get props => [orders, totalPrice, cartCount];
+  List<Object?> get props => [items, totalPrice, cartCount];
 }
 
 class CartError extends CartState {
@@ -41,18 +41,18 @@ class CartActionError extends CartLoaded {
 
   const CartActionError({
     required this.message,
-    required super.orders,
+    required super.items,
     required super.totalPrice,
     required super.cartCount,
   });
 
   @override
-  List<Object?> get props => [message, orders, totalPrice, cartCount];
+  List<Object?> get props => [message, items, totalPrice, cartCount];
 }
 
 class OrderDeleting extends CartLoaded {
   const OrderDeleting({
-    required super.orders,
+    required super.items,
     required super.totalPrice,
     required super.cartCount,
   });
@@ -60,7 +60,7 @@ class OrderDeleting extends CartLoaded {
 
 class OrderDeleted extends CartLoaded {
   const OrderDeleted({
-    required super.orders,
+    required super.items,
     required super.totalPrice,
     required super.cartCount,
   });
@@ -68,7 +68,7 @@ class OrderDeleted extends CartLoaded {
 
 class OrderCompleting extends CartLoaded {
   const OrderCompleting({
-    required super.orders,
+    required super.items,
     required super.totalPrice,
     required super.cartCount,
   });
@@ -76,8 +76,32 @@ class OrderCompleting extends CartLoaded {
 
 class OrderCompleted extends CartLoaded {
   const OrderCompleted({
-    required super.orders,
+    required super.items,
     required super.totalPrice,
     required super.cartCount,
   });
+}
+
+/// Emitted when the Stripe checkout session URL is ready to be opened.
+class StripeCheckoutReady extends CartLoaded {
+  final String checkoutUrl;
+
+  const StripeCheckoutReady({
+    required this.checkoutUrl,
+    required super.items,
+    required super.totalPrice,
+    required super.cartCount,
+  });
+
+  @override
+  List<Object?> get props => [checkoutUrl, items, totalPrice, cartCount];
+}
+
+class OrderCreatedFromCart extends CartState {
+  final OrderEntity order;
+
+  const OrderCreatedFromCart({required this.order});
+
+  @override
+  List<Object?> get props => [order];
 }

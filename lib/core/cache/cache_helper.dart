@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper {
@@ -5,6 +6,26 @@ class CacheHelper {
 
   static Future<void> init() async {
     prefs = await SharedPreferences.getInstance();
+  }
+
+  static Future<void> saveLastOrder(Map<String, dynamic> orderJson) async {
+    await prefs.setString('lastOrder', jsonEncode(orderJson));
+  }
+
+  static Map<String, dynamic>? getLastOrder() {
+    final raw = prefs.getString('lastOrder');
+    if (raw != null) {
+      try {
+        return jsonDecode(raw) as Map<String, dynamic>;
+      } catch (_) {
+        return null;
+      }
+    }
+    return null;
+  }
+
+  static Future<void> clearLastOrder() async {
+    await prefs.remove('lastOrder');
   }
 
   static Future<void> saveToken(String token) async {

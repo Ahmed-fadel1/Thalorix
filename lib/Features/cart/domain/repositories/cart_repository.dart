@@ -10,7 +10,13 @@ abstract class CartRepository {
     required int quantity,
   });
   
+  Future<Either<Failure, OrderEntity>> createOrder({
+    required List<CartItemEntity> items,
+  });
+
   Future<Either<Failure, void>> deleteOrder(String orderId);
   
   Future<Either<Failure, void>> completeOrder(String orderId);
+
+  Future<Either<Failure, String>> createCheckoutSession(String orderId);
 }

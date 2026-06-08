@@ -39,6 +39,20 @@ class CartRepositoryImpl implements CartRepository {
   }
 
   @override
+  Future<Either<Failure, OrderEntity>> createOrder({
+    required List<CartItemEntity> items,
+  }) async {
+    try {
+      final result = await remoteDataSource.createOrder(items: items);
+      return Right(result);
+    } catch (e) {
+      if (e is Failure) return Left(e);
+      return Left(ErrorHandler.handle(e));
+    }
+  }
+
+
+  @override
   Future<Either<Failure, void>> deleteOrder(String orderId) async {
     try {
       await remoteDataSource.deleteOrder(orderId);
@@ -54,6 +68,17 @@ class CartRepositoryImpl implements CartRepository {
     try {
       await remoteDataSource.completeOrder(orderId);
       return const Right(null);
+    } catch (e) {
+      if (e is Failure) return Left(e);
+      return Left(ErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> createCheckoutSession(String orderId) async {
+    try {
+      final url = await remoteDataSource.createCheckoutSession(orderId);
+      return Right(url);
     } catch (e) {
       if (e is Failure) return Left(e);
       return Left(ErrorHandler.handle(e));

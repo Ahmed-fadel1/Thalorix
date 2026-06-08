@@ -9,6 +9,7 @@ import 'package:thalorix_app/Features/marketplace/presentation/widgets/details_r
 import 'package:thalorix_app/core/widgets/custom_app_bar.dart';
 import 'package:thalorix_app/Features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:thalorix_app/Features/cart/presentation/cubit/cart_state.dart';
+import 'package:thalorix_app/Features/cart/domain/entities/order_entity.dart';
 
 class TemplateDetailsView extends StatefulWidget {
   final String templateId;
@@ -97,7 +98,13 @@ class _TemplateDetailsViewState extends State<TemplateDetailsView> {
                           Expanded(
                             child: OutlinedButton.icon(
                               onPressed: () {
-                                context.read<CartCubit>().addToCart(template.id);
+                                context.read<CartCubit>().addToCart(CartTemplate(
+                                  id: template.id,
+                                  title: template.title,
+                                  description: template.description,
+                                  price: template.price,
+                                  thumbnail: template.thumbnail,
+                                ));
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text('Added to cart!'),
@@ -134,7 +141,13 @@ class _TemplateDetailsViewState extends State<TemplateDetailsView> {
                                       ? null
                                       : () {
                                           setState(() { _isBuyNowTriggered = true; });
-                                          context.read<CartCubit>().addToCart(template.id);
+                                          context.read<CartCubit>().addToCart(CartTemplate(
+                                            id: template.id,
+                                            title: template.title,
+                                            description: template.description,
+                                            price: template.price,
+                                            thumbnail: template.thumbnail,
+                                          ));
                                         },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.teal,

@@ -1,0 +1,33 @@
+[33m6c1f507[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfinished--chats-and-profile[m[33m, [m[1;31morigin/finished--chats-and-profile[m[33m)[m HEAD@{0}: reset: moving to HEAD~1
+[33ma18ba6d[m HEAD@{1}: commit: backup before cart refactor
+[33m6c1f507[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfinished--chats-and-profile[m[33m, [m[1;31morigin/finished--chats-and-profile[m[33m)[m HEAD@{2}: checkout: moving from finished--chats-and-profile to finished--chats-and-profile
+[33m6c1f507[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfinished--chats-and-profile[m[33m, [m[1;31morigin/finished--chats-and-profile[m[33m)[m HEAD@{3}: commit: Update generated files
+[33ma19b3fa[m HEAD@{4}: checkout: moving from semi-final-touches to finished--chats-and-profile
+[33m0552ee2[m[33m ([m[1;31morigin/semi-final-touches[m[33m, [m[1;32msemi-final-touches[m[33m)[m HEAD@{5}: commit: Describe your changes
+[33mc92c2e5[m[33m ([m[1;31mbackup/backup-final[m[33m)[m HEAD@{6}: commit: Final updates before completion
+[33me9d8b81[m[33m ([m[1;31morigin/with_domain_layer_phase2[m[33m, [m[1;32mwith_domain_layer_phase2[m[33m)[m HEAD@{7}: checkout: moving from with_domain_layer_phase2 to semi-final-touches
+[33me9d8b81[m[33m ([m[1;31morigin/with_domain_layer_phase2[m[33m, [m[1;32mwith_domain_layer_phase2[m[33m)[m HEAD@{8}: commit: fix auth flow and verify is done and login and sign up
+[33mcdf0d47[m[33m ([m[1;31morigin/with_domain_layer[m[33m, [m[1;32mwith_domain_layer[m[33m)[m HEAD@{9}: checkout: moving from with_domain_layer to with_domain_layer_phase2
+[33mcdf0d47[m[33m ([m[1;31morigin/with_domain_layer[m[33m, [m[1;32mwith_domain_layer[m[33m)[m HEAD@{10}: commit: add OTP flow and verification
+[33m3569126[m HEAD@{11}: commit: Add auth module
+[33mbb55417[m[33m ([m[1;31morigin/semi-final[m[33m, [m[1;32msemi-final[m[33m)[m HEAD@{12}: checkout: moving from semi-final to with_domain_layer
+[33mbb55417[m[33m ([m[1;31morigin/semi-final[m[33m, [m[1;32msemi-final[m[33m)[m HEAD@{13}: commit: Semi final version
+[33meb379c4[m[33m ([m[1;32mcode-generation-ui[m[33m)[m HEAD@{14}: checkout: moving from code-generation-ui to semi-final
+[33meb379c4[m[33m ([m[1;32mcode-generation-ui[m[33m)[m HEAD@{15}: commit: restore images
+[33mc172475[m HEAD@{16}: commit: restore custom_app_bar shared widget
+[33m58c5646[m HEAD@{17}: commit: restore marketplace and community features
+[33md3561de[m HEAD@{18}: pull: Fast-forward
+[33mc408614[m HEAD@{19}: checkout: moving from home-ui to code-generation-ui
+[33mbe86a33[m[33m ([m[1;32mhome-ui[m[33m)[m HEAD@{20}: checkout: moving from auth-feature to home-ui
+[33m9ec5693[m[33m ([m[1;31morigin/auth-feature[m[33m, [m[1;32mauth-feature[m[33m)[m HEAD@{21}: commit: fix: update reset password validation
+[33mf9db78c[m HEAD@{22}: commit: initial commit
+[33ma2e2165[m HEAD@{23}: checkout: moving from home-ui to auth-feature
+[33mbe86a33[m[33m ([m[1;32mhome-ui[m[33m)[m HEAD@{24}: checkout: moving from auth-feature to home-ui
+[33ma2e2165[m HEAD@{25}: checkout: moving from home-ui to auth-feature
+[33mbe86a33[m[33m ([m[1;32mhome-ui[m[33m)[m HEAD@{26}: commit: edit some files in home_ui
+[33mfd95d25[m HEAD@{27}: checkout: moving from auth-feature to home-ui
+[33ma2e2165[m HEAD@{28}: commit: Fix forgot password page
+[33mf284939[m HEAD@{29}: commit: fix auth flow and routing
+[33m4b43809[m HEAD@{30}: commit: auth pages done
+[33m7dfc710[m[33m ([m[1;32mmain[m[33m)[m HEAD@{31}: checkout: moving from main to auth-feature
+[33m7dfc710[m[33m ([m[1;32mmain[m[33m)[m HEAD@{32}: clone: from https://github.com/Ahmed-fadel1/Thalorix.git
