@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thalorix_app/Features/profile/presentation/cubit/cubit/user_update_cubit.dart';
 import 'package:thalorix_app/Features/profile/presentation/cubit/cubit/user_update_state.dart';
 import 'package:thalorix_app/Features/security/presentation/bloc/cubit/security_settings_cubit.dart';
+import 'package:thalorix_app/Features/security/presentation/widgets/build_buttons.dart';
 import 'package:thalorix_app/Features/security/presentation/widgets/email_tab.dart';
 import 'package:thalorix_app/Features/security/presentation/widgets/password_tab.dart';
 
