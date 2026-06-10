@@ -8,11 +8,12 @@ class AuthTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final Widget? prefixIcon;
   final Color? hintstyle;
-  final Color ?suffixIconColor;
-  final Color ?prefixIconColor;
+  final Color? suffixIconColor;
+  final Color? prefixIconColor;
   final TextEditingController controller;
   final FormFieldValidator<String>? validator;
   final Color? borderColor;
+  final void Function(String)? onChanged;
   const AuthTextField({
     super.key,
     required this.hint,
@@ -24,10 +25,9 @@ class AuthTextField extends StatelessWidget {
     this.hintstyle,
     this.suffixIconColor,
     this.prefixIconColor,
-  this.validator,
-  this.borderColor,
-
-
+    this.validator,
+    this.borderColor,
+    this.onChanged,
   });
 
   @override
@@ -36,15 +36,13 @@ class AuthTextField extends StatelessWidget {
       validator: validator,
 
       controller: controller,
+      onChanged: onChanged,
       obscureText: obscureText,
       keyboardType: keyboardType,
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: TextStyle(
-          color: hintstyle,
-        ),
+        hintStyle: TextStyle(color: hintstyle),
         border: OutlineInputBorder(
-         
           borderSide: BorderSide(
             color: borderColor ?? AppColors.border,
             width: 1,
@@ -58,24 +56,16 @@ class AuthTextField extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-            borderSide:  BorderSide(
-        color: AppColors.border, 
-        width: 1,
-      ),
+          borderSide: BorderSide(color: AppColors.border, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-            borderSide:  BorderSide(
-              
-            
-              color: Color(0xFF2F6F73),
-        width: 1,
-      ),
+          borderSide: BorderSide(color: Color(0xFF2F6F73), width: 1),
         ),
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
         suffixIconColor: suffixIconColor,
-        prefixIconColor: prefixIconColor
+        prefixIconColor: prefixIconColor,
       ),
     );
   }

@@ -1,25 +1,21 @@
-enum AuthProcess {
-  signup,
-  login,
-  verifyOtp,
-  forgotPassword,
-}
-abstract class AuthState {}
+enum AuthProcess { signup, login, verifyOtp, forgotPassword }
 
+abstract class AuthState {}
 
 class AuthInitial extends AuthState {}
 
-class AuthLoading extends AuthState { final AuthProcess process;
+class AuthLoading extends AuthState {
+  final AuthProcess process;
 
-  AuthLoading(this.process);}
+  AuthLoading(this.process);
+}
 
-class AuthSuccess extends AuthState { final AuthProcess process;
+class AuthSuccess extends AuthState {
+  final AuthProcess process;
   final String? message;
 
-  AuthSuccess({
-    required this.process,
-    this.message,
-  });}
+  AuthSuccess({required this.process, this.message});
+}
 
 class AuthError extends AuthState {
   final String message;

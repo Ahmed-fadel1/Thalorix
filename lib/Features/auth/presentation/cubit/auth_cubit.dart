@@ -1,7 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:thalorix_app/Features/auth/data/models/user_model.dart';
 import 'package:thalorix_app/Features/auth/domain/usecases/sign_up_usecase.dart';
 import 'package:thalorix_app/Features/auth/presentation/cubit/auth_state.dart';
 import 'package:thalorix_app/Features/auth/domain/usecases/login_usecase.dart';
@@ -21,42 +20,38 @@ class AuthCubit extends Cubit<AuthState> {
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-Future<void> login() async {
 
-  if (emailController.text.isEmpty ||
-      passwordController.text.isEmpty) {
-    emit(AuthError("Please fill all fields"));
-    return;
+  Future<void> login() async {
+    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+      emit(AuthError("Please fill all fields"));
+      return;
+    }
+
+    emit(AuthLoading(AuthProcess.login));
+
+    final result = await loginUseCase(
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+    );
+
+    result.fold(
+      (failure) {
+        emit(AuthError(failure.message));
+      },
+      (loginResponse) async {
+        await CacheHelper.saveUserId(loginResponse.user.id);
+        await CacheHelper.saveToken(loginResponse.accessToken);
+        await CacheHelper.saveName(loginResponse.user.name);
+
+        emit(
+          AuthSuccess(process: AuthProcess.login, message: "Login successful"),
+        );
+      },
+    );
   }
 
-  emit(AuthLoading(AuthProcess.login));
-
-  final result = await loginUseCase(
-    email: emailController.text.trim(),
-    password: passwordController.text.trim(),
-  );
-
-  result.fold(
-    (failure) {
-      emit(AuthError(failure.message));
-    },
-    (loginResponse) async {
-      
-      await CacheHelper.saveToken(loginResponse.accessToken);
-      await CacheHelper.saveName(loginResponse.user.name);
-      await CacheHelper.saveUserId(loginResponse.user.id);
-
-      emit(AuthSuccess(
-        process: AuthProcess.login,
-        message: "Login successful",
-      ));
-    },
-
-
-  );
-}
   Future<void> signUp({required String email}) async {
- lastEmail = email; 
+    lastEmail = email;
     if (nameController.text.isEmpty ||
         emailController.text.isEmpty ||
         phoneController.text.isEmpty ||
@@ -85,16 +80,18 @@ Future<void> login() async {
     print(" AFTER USECASE");
     result.fold(
       (failure) {
-        print(" ERROR FROM USECASE: ${failure.message}"); 
+        print(" ERROR FROM USECASE: ${failure.message}");
         emit(AuthError(failure.message));
       },
       (user) {
         print(" SUCCESS");
         _clearControllers();
-        emit(AuthSuccess(
-          process: AuthProcess.signup,
-          message: " Account created successfully",
-        ));
+        emit(
+          AuthSuccess(
+            process: AuthProcess.signup,
+            message: " Account created successfully",
+          ),
+        );
       },
     );
   }

@@ -12,7 +12,7 @@ class DioHelper {
         receiveDataWhenStatusError: true,
         connectTimeout: const Duration(seconds: 20),
         receiveTimeout: const Duration(seconds: 20),
-        headers: {'Content-Type': 'application/json'},
+        headers: _headers(),
       ),
     );
 
@@ -37,7 +37,7 @@ class DioHelper {
 
   static Future<Response> postData({
     required String url,
-    dynamic data,
+    Map<String, dynamic>? data,
     Map<String, dynamic>? query,
     Map<String, String>? headers,
   }) async {
@@ -55,34 +55,14 @@ class DioHelper {
 
   static Future<Response> patchData({
     required String url,
-    dynamic data,
-    Map<String, dynamic>? query,
-    Map<String, String>? headers,
+    Map<String, dynamic>? data,
   }) async {
     try {
+      final headers = _headers();
       return await dio.patch(
         url,
         data: data,
-        queryParameters: query,
-        options: Options(headers: headers ?? _headers()),
-      );
-    } on DioException catch (e) {
-      throw ErrorHandler.handle(e);
-    }
-  }
-
-  static Future<Response> deleteData({
-    required String url,
-    dynamic data,
-    Map<String, dynamic>? query,
-    Map<String, String>? headers,
-  }) async {
-    try {
-      return await dio.delete(
-        url,
-        data: data,
-        queryParameters: query,
-        options: Options(headers: headers ?? _headers()),
+        options: Options(headers: headers),
       );
     } on DioException catch (e) {
       throw ErrorHandler.handle(e);
@@ -91,7 +71,6 @@ class DioHelper {
 
   static Map<String, String> _headers() {
     final token = CacheHelper.getToken();
-
     return {
       'Content-Type': 'application/json',
       if (token != null && token.isNotEmpty) 'Authorization': 'Bearer $token',

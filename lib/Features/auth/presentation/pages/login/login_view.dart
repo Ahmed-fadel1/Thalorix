@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:thalorix_app/Features/auth/data/data_sources/auth_remote_data_source.dart';
-import 'package:thalorix_app/Features/auth/data/repositories/auth_repository_impl.dart';
-import 'package:thalorix_app/Features/auth/domain/usecases/login_usecase.dart';
-import 'package:thalorix_app/Features/auth/domain/usecases/sign_up_usecase.dart';
+
 import 'package:thalorix_app/Features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:thalorix_app/Features/auth/presentation/cubit/auth_state.dart';
 import 'package:thalorix_app/Features/auth/presentation/widgets/Icon_Text_Button.dart';
@@ -18,41 +15,36 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
- 
     var size = MediaQuery.of(context).size;
 
     return Builder(
       builder: (context) {
         final cubit = AuthCubit.get(context);
         return BlocListener<AuthCubit, AuthState>(
-  listenWhen: (previous, current) {
-    return current is AuthError || current is AuthSuccess;
-  },
-  listener: (context, state) {
+          listenWhen: (previous, current) {
+            return current is AuthError || current is AuthSuccess;
+          },
+          listener: (context, state) {
+            if (state is AuthSuccess && state.process == AuthProcess.login) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message ?? "Login successful"),
+                  backgroundColor: Colors.green,
+                ),
+              );
 
-    if (state is AuthSuccess &&
-        state.process == AuthProcess.login) {
+              Navigator.pushReplacementNamed(context, Routes.home);
+            }
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(state.message ?? "Login successful"),
-          backgroundColor: Colors.green,
-        ),
-      );
-
-      Navigator.pushReplacementNamed(context, Routes.home);
-    }
-
-    if (state is AuthError) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(state.message),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  },
- 
+            if (state is AuthError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
+          },
 
           child: Scaffold(
             body: Container(
@@ -175,28 +167,27 @@ class LoginView extends StatelessWidget {
                             ),
                             const SizedBox(height: 16),
                             BlocBuilder<AuthCubit, AuthState>(
-  builder: (context, state) {
-    final isLoading =
-        state is AuthLoading &&
-        state.process == AuthProcess.login;
+                              builder: (context, state) {
+                                final isLoading =
+                                    state is AuthLoading &&
+                                    state.process == AuthProcess.login;
 
-    return PrimaryButton(
-      text: isLoading ? "Loading..." : "Login ",
-      onTap: isLoading
-          ? null
-          : () {
-             cubit.login();
-              },
+                                return PrimaryButton(
+                                  text: isLoading ? "Loading..." : "Login ",
+                                  onTap: isLoading
+                                      ? null
+                                      : () {
+                                          cubit.login();
+                                        },
 
-              
-            
-      height: localheight * 0.07,
-      backgroundColor:
-          isLoading ? Colors.grey : AppColors.iconbutton,
-      textColor: Colors.white,
-    );
-  },
-),
+                                  height: localheight * 0.07,
+                                  backgroundColor: isLoading
+                                      ? Colors.grey
+                                      : AppColors.iconbutton,
+                                  textColor: Colors.white,
+                                );
+                              },
+                            ),
                             Padding(
                               padding: const EdgeInsets.only(
                                 top: 16.0,

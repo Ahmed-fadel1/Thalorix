@@ -11,8 +11,10 @@ class ApiEndpoints {
   static String communityPostById(String id) => 'community/post/$id';
 
   // Community - Comments
-  static String communityAddComment(String postId) => 'community/$postId/comment';
-  static String communityGetComments(String postId) => 'community/$postId/comments';
+  static String communityAddComment(String postId) =>
+      'community/$postId/comment';
+  static String communityGetComments(String postId) =>
+      'community/$postId/comments';
   static String communityCommentById(String id) => 'community/comment/$id';
 
   // AI Builder

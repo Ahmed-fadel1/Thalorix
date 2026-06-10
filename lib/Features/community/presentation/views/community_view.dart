@@ -119,8 +119,11 @@ class _CommunityViewState extends State<CommunityView> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.error_outline,
-                                size: 60, color: Colors.grey.shade400),
+                            Icon(
+                              Icons.error_outline,
+                              size: 60,
+                              color: Colors.grey.shade400,
+                            ),
                             const SizedBox(height: 16),
                             Text(
                               state.message,
@@ -138,8 +141,10 @@ class _CommunityViewState extends State<CommunityView> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.splashPrimary,
                               ),
-                              child: const Text('Retry',
-                                  style: TextStyle(color: Colors.white)),
+                              child: const Text(
+                                'Retry',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ],
                         ),
@@ -154,8 +159,11 @@ class _CommunityViewState extends State<CommunityView> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.forum_outlined,
-                                  size: 60, color: Colors.grey.shade400),
+                              Icon(
+                                Icons.forum_outlined,
+                                size: 60,
+                                color: Colors.grey.shade400,
+                              ),
                               const SizedBox(height: 16),
                               Text(
                                 'No posts yet.\nBe the first to share!',
@@ -180,7 +188,8 @@ class _CommunityViewState extends State<CommunityView> {
                           itemBuilder: (context, index) {
                             final post = posts[index];
                             final currentUserId = CacheHelper.getUserId();
-                            final isMyPost = currentUserId != null &&
+                            final isMyPost =
+                                currentUserId != null &&
                                 currentUserId.isNotEmpty &&
                                 post.userId == currentUserId;
 
@@ -201,7 +210,11 @@ class _CommunityViewState extends State<CommunityView> {
                                   : null,
                               onEdit: isMyPost
                                   ? () => _showEditDialog(
-                                      context, post.id, post.content, post.image)
+                                      context,
+                                      post.id,
+                                      post.content,
+                                      post.image,
+                                    )
                                   : null,
                             );
                           },
@@ -244,10 +257,7 @@ class _CommunityViewState extends State<CommunityView> {
               Navigator.pop(ctx);
               context.read<CommunityCubit>().deletePost(id: postId);
             },
-            child: const Text(
-              'Delete',
-              style: TextStyle(color: Colors.red),
-            ),
+            child: const Text('Delete', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),
@@ -255,7 +265,11 @@ class _CommunityViewState extends State<CommunityView> {
   }
 
   void _showEditDialog(
-      BuildContext context, String postId, String currentContent, String? currentImage) {
+    BuildContext context,
+    String postId,
+    String currentContent,
+    String? currentImage,
+  ) {
     final contentController = TextEditingController(text: currentContent);
     final imageController = TextEditingController(text: currentImage ?? '');
 
@@ -277,8 +291,10 @@ class _CommunityViewState extends State<CommunityView> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide:
-                        const BorderSide(color: AppColors.splashPrimary, width: 2),
+                    borderSide: const BorderSide(
+                      color: AppColors.splashPrimary,
+                      width: 2,
+                    ),
                   ),
                 ),
               ),
@@ -287,15 +303,19 @@ class _CommunityViewState extends State<CommunityView> {
                 controller: imageController,
                 decoration: InputDecoration(
                   hintText: 'Image URL (optional)',
-                  prefixIcon: const Icon(Icons.image_outlined,
-                      color: AppColors.splashPrimary),
+                  prefixIcon: const Icon(
+                    Icons.image_outlined,
+                    color: AppColors.splashPrimary,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide:
-                        const BorderSide(color: AppColors.splashPrimary, width: 2),
+                    borderSide: const BorderSide(
+                      color: AppColors.splashPrimary,
+                      width: 2,
+                    ),
                   ),
                 ),
               ),
@@ -314,11 +334,11 @@ class _CommunityViewState extends State<CommunityView> {
               if (newContent.isNotEmpty) {
                 Navigator.pop(ctx);
                 context.read<CommunityCubit>().updatePost(
-                      id: postId,
-                      content: newContent,
-                      userId: CacheHelper.getUserId() ?? '',
-                      image: newImage.isNotEmpty ? newImage : null,
-                    );
+                  id: postId,
+                  content: newContent,
+                  userId: CacheHelper.getUserId() ?? '',
+                  image: newImage.isNotEmpty ? newImage : null,
+                );
               }
             },
             child: const Text(

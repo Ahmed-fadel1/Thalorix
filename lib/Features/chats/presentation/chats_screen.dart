@@ -1,44 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:thalorix_app/Features/home/presentation/widgets/bottom_nav_bar.dart';
+import 'package:thalorix_app/Features/auth/data/models/user_model.dart';
+import 'package:thalorix_app/Features/profile/domain/repo/user_repo.dart';
+import 'package:thalorix_app/core/cache/cache_helper.dart';
 import 'package:thalorix_app/core/utils/Colors/app_colors.dart';
 import 'chat_detail_screen.dart';
 
-class ChatsScreen extends StatelessWidget {
+class ChatsScreen extends StatefulWidget {
   const ChatsScreen({super.key});
 
-  final List<Map<String, dynamic>> chats = const [
-    {
-      "name": "yasmen",
-      "lastMessage": "send me your code please......",
-      "time": "09:20 am",
-      "unread": 2,
-      "online": true,
-      "avatar": "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png",
-    },
-    {
-      "name": "marc",
-      "lastMessage": "ok, thanks!",
-      "time": "09:20 am",
-      "unread": 1,
-      "online": false,
-      "avatar": "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
-    },
-    {
-      "name": "jack",
-      "lastMessage": "okay, i will try ......",
-      "time": "08:30 am",
-      "unread": 0,
-      "online": false,
-      "avatar": "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"},
-    {
-      "name": "omar",
-      "lastMessage": "where are you......",
-      "time": "07:32 am",
-      "unread": 0,
-      "online": true,
-      "avatar": "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png",
-    },
-  ];
+  @override
+  State<ChatsScreen> createState() => _ChatsScreenState();
+}
+
+class _ChatsScreenState extends State<ChatsScreen> {
+  List<UserModel> _users = [];
+  List<UserModel> _filteredUsers = [];
+  bool _isLoading = true;
+
+  final String myId = CacheHelper.getUserId() ?? "";
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUsers();
+  }
+
+  Future<void> _loadUsers() async {
+    try {
+      final users = await UserRepository.getAllUsers();
+
+      if (!mounted) return;
+
+      setState(() {
+        _users = users.where((u) => u.id != myId).toList();
+        _filteredUsers = _users;
+        _isLoading = false;
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _isLoading = false);
+    }
+  }
+
+  void _onSearch(String query) {
+    setState(() {
+      _filteredUsers = _users
+          .where(
+            (u) =>
+                u.name.toLowerCase().contains(query.toLowerCase()) ||
+                u.email.toLowerCase().contains(query.toLowerCase()),
+          )
+          .toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +62,7 @@ class ChatsScreen extends StatelessWidget {
         leading: Padding(
           padding: const EdgeInsets.only(left: 16.0),
           child: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
+            onTap: () => Navigator.pop(context),
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
@@ -84,7 +96,6 @@ class ChatsScreen extends StatelessWidget {
           ),
         ],
       ),
-
       body: Column(
         children: [
           Container(
@@ -93,9 +104,12 @@ class ChatsScreen extends StatelessWidget {
             width: double.infinity,
             color: AppColors.border,
           ),
+
+          // Search bar
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: TextField(
+              onChanged: _onSearch,
               decoration: InputDecoration(
                 hintText: "Search by name or email....",
                 prefixIcon: const Icon(Icons.search),
@@ -119,46 +133,59 @@ class ChatsScreen extends StatelessWidget {
           // Stories horizontal scroll
           SizedBox(
             height: 80,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              children: [
-                Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 24,
-                      backgroundColor: AppColors.border,
-                      child: const Icon(
-                        Icons.add,
-                        size: 28,
-                        color: AppColors.iconbutton,
+            child: _isLoading
+                ? const SizedBox()
+                : ListView(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    children: [
+                      Column(
+                        children: [
+                          CircleAvatar(
+                            radius: 24,
+                            backgroundColor: AppColors.border,
+                            child: const Icon(
+                              Icons.add,
+                              size: 28,
+                              color: AppColors.iconbutton,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          const Text(
+                            "Add story",
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    const Text("Add story", style: TextStyle(fontSize: 12)),
-                  ],
-                ),
-                const SizedBox(width: 12),
-                ...chats.map(
-                  (chat) => Padding(
-                    padding: const EdgeInsets.only(right: 12),
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 24,
-                          backgroundImage: NetworkImage(chat["avatar"]),
+                      const SizedBox(width: 12),
+                      ..._users.map(
+                        (user) => Padding(
+                          padding: const EdgeInsets.only(right: 12),
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                radius: 24,
+                                backgroundColor: AppColors.border,
+                                child: Text(
+                                  user.name.isNotEmpty
+                                      ? user.name[0].toUpperCase()
+                                      : '?',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                user.name.split(' ').first,
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 4),
-                        Text(
-                          chat["name"],
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
           ),
 
           Container(
@@ -168,79 +195,47 @@ class ChatsScreen extends StatelessWidget {
             color: Colors.grey[300],
           ),
 
+          // Users list
           Expanded(
-            child: ListView.builder(
-              itemCount: chats.length,
-              itemBuilder: (context, index) {
-                final chat = chats[index];
-                return ListTile(
-                  leading: Stack(
-                    children: [
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(chat["avatar"]),
-                        radius: 24,
-                      ),
-                      if (chat["online"])
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: Container(
-                            width: 12,
-                            height: 12,
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              shape: BoxShape.circle,
-                              border: Border.all(color: Colors.white, width: 2),
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                  title: Text(chat["name"]),
-                  subtitle: Text(chat["lastMessage"]),
-                  trailing: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(chat["time"]),
-                      if (chat["unread"] > 0)
-                        Container(
-                          margin: const EdgeInsets.only(top: 4),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 6,
-                            vertical: 2,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColors.iconbutton,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
+            child: _isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : _filteredUsers.isEmpty
+                ? const Center(child: Text("No users found"))
+                : ListView.builder(
+                    itemCount: _filteredUsers.length,
+                    itemBuilder: (context, index) {
+                      final user = _filteredUsers[index];
+                      return ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: AppColors.border,
+                          radius: 24,
                           child: Text(
-                            chat["unread"].toString(),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                            ),
+                            user.name.isNotEmpty
+                                ? user.name[0].toUpperCase()
+                                : '?',
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
-                    ],
+                        title: Text(user.name),
+                        subtitle: Text(user.email),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ChatDetailScreen(
+                                name: user.name,
+                                receiverId: user.id,
+                                myId: myId,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => ChatDetailScreen(
-                          name: chat["name"],
-                          avatar: chat["avatar"],
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
           ),
         ],
       ),
-      // bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

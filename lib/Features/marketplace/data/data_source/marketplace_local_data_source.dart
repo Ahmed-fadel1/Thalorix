@@ -19,7 +19,7 @@ class MarketplaceLocalDataSource {
       ),
       ProductModel(
         image: "assets/images/temp_web1.jpg",
-        title: "Mobile App UI",
+        title: " WEB UI",
         price: 45,
         description: "Clean modern UI template.",
         creator: "John Doe",
@@ -29,7 +29,7 @@ class MarketplaceLocalDataSource {
         title: "Mobile App UI",
         price: 45,
         description: "Clean modern UI template.",
-        creator: "John Doe",
+        creator: "John oe",
       ),
       ProductModel(
         image: "assets/images/temp_web6.jpg",

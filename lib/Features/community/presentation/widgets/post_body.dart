@@ -81,8 +81,8 @@ class _PostCardState extends State<PostCard> {
                 // Author Avatar - Tappable
                 GestureDetector(
                   onTap: _showProfilePreview,
-                  child: post.authorAvatar != null &&
-                          post.authorAvatar!.isNotEmpty
+                  child:
+                      post.authorAvatar != null && post.authorAvatar!.isNotEmpty
                       ? CircleAvatar(
                           radius: 25,
                           backgroundImage: NetworkImage(
@@ -93,13 +93,15 @@ class _PostCardState extends State<PostCard> {
                             },
                           ),
                           onBackgroundImageError: (_, __) {},
-                          backgroundColor:
-                              AppColors.splashPrimary.withValues(alpha: 0.2),
+                          backgroundColor: AppColors.splashPrimary.withValues(
+                            alpha: 0.2,
+                          ),
                         )
                       : CircleAvatar(
                           radius: 25,
-                          backgroundColor:
-                              AppColors.splashPrimary.withValues(alpha: 0.2),
+                          backgroundColor: AppColors.splashPrimary.withValues(
+                            alpha: 0.2,
+                          ),
                           child: Text(
                             post.authorName.isNotEmpty
                                 ? post.authorName[0].toUpperCase()
@@ -141,7 +143,9 @@ class _PostCardState extends State<PostCard> {
                         const SizedBox(width: 6),
                         Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 3),
+                            horizontal: 8,
+                            vertical: 3,
+                          ),
                           decoration: BoxDecoration(
                             color: AppColors.splashPrimary,
                             borderRadius: BorderRadius.circular(10),
@@ -172,8 +176,11 @@ class _PostCardState extends State<PostCard> {
                 // Three dots menu (Edit/Delete)
                 if (widget.onDelete != null || widget.onEdit != null)
                   PopupMenuButton<String>(
-                    icon: const Icon(Icons.more_vert,
-                        size: 20, color: Colors.grey),
+                    icon: const Icon(
+                      Icons.more_vert,
+                      size: 20,
+                      color: Colors.grey,
+                    ),
                     padding: EdgeInsets.zero,
                     onSelected: (value) {
                       if (value == 'edit' && widget.onEdit != null) {
@@ -189,8 +196,11 @@ class _PostCardState extends State<PostCard> {
                           value: 'edit',
                           child: Row(
                             children: [
-                              Icon(Icons.edit_outlined,
-                                  size: 18, color: AppColors.splashPrimary),
+                              Icon(
+                                Icons.edit_outlined,
+                                size: 18,
+                                color: AppColors.splashPrimary,
+                              ),
                               SizedBox(width: 8),
                               Text('Edit'),
                             ],
@@ -201,11 +211,16 @@ class _PostCardState extends State<PostCard> {
                           value: 'delete',
                           child: Row(
                             children: [
-                              Icon(Icons.delete_outline,
-                                  size: 18, color: Colors.red),
+                              Icon(
+                                Icons.delete_outline,
+                                size: 18,
+                                color: Colors.red,
+                              ),
                               SizedBox(width: 8),
-                              Text('Delete',
-                                  style: TextStyle(color: Colors.red)),
+                              Text(
+                                'Delete',
+                                style: TextStyle(color: Colors.red),
+                              ),
                             ],
                           ),
                         ),
@@ -219,10 +234,7 @@ class _PostCardState extends State<PostCard> {
             // Post Content
             Text(
               post.content,
-              style: const TextStyle(
-                fontSize: 15,
-                color: Color(0xFF0D3B40),
-              ),
+              style: const TextStyle(fontSize: 15, color: Color(0xFF0D3B40)),
               maxLines: 5,
               overflow: TextOverflow.ellipsis,
             ),
@@ -253,7 +265,7 @@ class _PostCardState extends State<PostCard> {
                             child: CircularProgressIndicator(
                               value: loadingProgress.expectedTotalBytes != null
                                   ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
+                                        loadingProgress.expectedTotalBytes!
                                   : null,
                               color: AppColors.splashPrimary,
                               strokeWidth: 2,
@@ -262,7 +274,9 @@ class _PostCardState extends State<PostCard> {
                         );
                       },
                       errorBuilder: (context, error, stackTrace) {
-                        debugPrint('❌ Image load FAILED for URL: ${post.image}');
+                        debugPrint(
+                          '❌ Image load FAILED for URL: ${post.image}',
+                        );
                         debugPrint('❌ Error: $error');
                         return Container(
                           height: 180,
@@ -274,18 +288,30 @@ class _PostCardState extends State<PostCard> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(Icons.broken_image, size: 40, color: Colors.grey),
+                              const Icon(
+                                Icons.broken_image,
+                                size: 40,
+                                color: Colors.grey,
+                              ),
                               const SizedBox(height: 8),
                               const Text(
                                 'Image could not be loaded',
-                                style: TextStyle(fontSize: 12, color: Colors.grey),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey,
+                                ),
                               ),
                               const SizedBox(height: 4),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
                                 child: Text(
                                   '${post.image}',
-                                  style: const TextStyle(fontSize: 9, color: Colors.grey),
+                                  style: const TextStyle(
+                                    fontSize: 9,
+                                    color: Colors.grey,
+                                  ),
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.center,
@@ -327,13 +353,15 @@ class _PostCardState extends State<PostCard> {
                   style: TextStyle(
                     fontSize: 13,
                     color: _isLiked ? Colors.red : Colors.grey,
-                    fontWeight:
-                        _isLiked ? FontWeight.w600 : FontWeight.normal,
+                    fontWeight: _isLiked ? FontWeight.w600 : FontWeight.normal,
                   ),
                 ),
                 const SizedBox(width: 20),
-                Icon(Icons.chat_bubble_outline,
-                    size: 20, color: Colors.grey.shade600),
+                Icon(
+                  Icons.chat_bubble_outline,
+                  size: 20,
+                  color: Colors.grey.shade600,
+                ),
                 const SizedBox(width: 6),
                 Text(
                   '${widget.overrideCommentsCount ?? post.commentsCount}',
