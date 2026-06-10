@@ -13,7 +13,6 @@ class DetailsHeader extends StatelessWidget {
     required this.price,
   });
 
-  
   Widget _buildProductImage(String? path) {
     if (path == null || path.isEmpty) {
       return Image.asset(

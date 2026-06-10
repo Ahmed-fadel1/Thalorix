@@ -17,8 +17,8 @@ class MarketPlaceView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => MarketplaceDI.provideMarketplaceCubit()
-        ..getMarketplaceData(),
+      create: (_) =>
+          MarketplaceDI.provideMarketplaceCubit()..getMarketplaceData(),
       child: const MarketPlaceViewBody(),
     );
   }
@@ -109,15 +109,16 @@ class _MarketPlaceViewBodyState extends State<MarketPlaceViewBody> {
                         ),
                       );
                     } else if (state is MarketplaceSuccess) {
-                      // Local search filtering 
+                      // Local search filtering
                       final filteredTemplates = state.templates.where((t) {
-                        final matchesSearch = _searchQuery.isEmpty ||
-                            t.title
-                                .toLowerCase()
-                                .contains(_searchQuery.toLowerCase()) ||
-                            t.description
-                                .toLowerCase()
-                                .contains(_searchQuery.toLowerCase());
+                        final matchesSearch =
+                            _searchQuery.isEmpty ||
+                            t.title.toLowerCase().contains(
+                              _searchQuery.toLowerCase(),
+                            ) ||
+                            t.description.toLowerCase().contains(
+                              _searchQuery.toLowerCase(),
+                            );
                         return matchesSearch;
                       }).toList();
 
@@ -159,14 +160,13 @@ class _MarketPlaceViewBodyState extends State<MarketPlaceViewBody> {
                                     itemCount: filteredTemplates.length,
                                     gridDelegate:
                                         const SliverGridDelegateWithFixedCrossAxisCount(
-                                      childAspectRatio: 0.7,
-                                      crossAxisCount: 2,
-                                      crossAxisSpacing: 12,
-                                      mainAxisSpacing: 12,
-                                    ),
+                                          childAspectRatio: 0.7,
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 12,
+                                          mainAxisSpacing: 12,
+                                        ),
                                     itemBuilder: (context, index) {
-                                      final template =
-                                          filteredTemplates[index];
+                                      final template = filteredTemplates[index];
 
                                       return ProductCard(
                                         imagepath: template.thumbnail,
@@ -178,8 +178,8 @@ class _MarketPlaceViewBodyState extends State<MarketPlaceViewBody> {
                                             MaterialPageRoute(
                                               builder: (_) =>
                                                   TemplateDetailsView(
-                                                templateId: template.id,
-                                              ),
+                                                    templateId: template.id,
+                                                  ),
                                             ),
                                           );
                                         },

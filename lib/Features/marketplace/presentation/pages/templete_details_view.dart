@@ -26,20 +26,26 @@ class _TemplateDetailsViewState extends State<TemplateDetailsView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => MarketplaceDI.provideTemplateDetailsCubit()
-        ..getTemplateDetails(widget.templateId),
+      create: (_) =>
+          MarketplaceDI.provideTemplateDetailsCubit()
+            ..getTemplateDetails(widget.templateId),
       child: Scaffold(
         body: SafeArea(
           child: BlocListener<CartCubit, CartState>(
             listener: (context, cartState) {
               if (_isBuyNowTriggered) {
                 if (cartState is CartLoaded) {
-                  setState(() { _isBuyNowTriggered = false; });
+                  setState(() {
+                    _isBuyNowTriggered = false;
+                  });
                   Navigator.pushNamed(context, '/cart');
-                } else if (cartState is CartError || cartState is CartActionError) {
-                  setState(() { _isBuyNowTriggered = false; });
-                  final String errorMessage = cartState is CartError 
-                      ? cartState.message 
+                } else if (cartState is CartError ||
+                    cartState is CartActionError) {
+                  setState(() {
+                    _isBuyNowTriggered = false;
+                  });
+                  final String errorMessage = cartState is CartError
+                      ? cartState.message
                       : (cartState as CartActionError).message;
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -81,7 +87,10 @@ class _TemplateDetailsViewState extends State<TemplateDetailsView> {
 
                   return Scaffold(
                     bottomNavigationBar: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 10,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         boxShadow: [
@@ -94,17 +103,18 @@ class _TemplateDetailsViewState extends State<TemplateDetailsView> {
                       ),
                       child: Row(
                         children: [
-                        
                           Expanded(
                             child: OutlinedButton.icon(
                               onPressed: () {
-                                context.read<CartCubit>().addToCart(CartTemplate(
-                                  id: template.id,
-                                  title: template.title,
-                                  description: template.description,
-                                  price: template.price,
-                                  thumbnail: template.thumbnail,
-                                ));
+                                context.read<CartCubit>().addToCart(
+                                  CartTemplate(
+                                    id: template.id,
+                                    title: template.title,
+                                    description: template.description,
+                                    price: template.price,
+                                    thumbnail: template.thumbnail,
+                                  ),
+                                );
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text('Added to cart!'),
@@ -112,7 +122,10 @@ class _TemplateDetailsViewState extends State<TemplateDetailsView> {
                                   ),
                                 );
                               },
-                              icon: const Icon(Icons.add_shopping_cart_rounded, color: Colors.teal),
+                              icon: const Icon(
+                                Icons.add_shopping_cart_rounded,
+                                color: Colors.teal,
+                              ),
                               label: const Text(
                                 'Add To Cart',
                                 style: TextStyle(
@@ -122,8 +135,13 @@ class _TemplateDetailsViewState extends State<TemplateDetailsView> {
                                 ),
                               ),
                               style: OutlinedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(vertical: 14),
-                                side: const BorderSide(color: Colors.teal, width: 2),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 14,
+                                ),
+                                side: const BorderSide(
+                                  color: Colors.teal,
+                                  width: 2,
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -131,27 +149,35 @@ class _TemplateDetailsViewState extends State<TemplateDetailsView> {
                             ),
                           ),
                           const SizedBox(width: 16),
-                     
+
                           Expanded(
                             child: BlocBuilder<CartCubit, CartState>(
                               builder: (context, cartState) {
-                                final isLoading = _isBuyNowTriggered && cartState is CartLoading;
+                                final isLoading =
+                                    _isBuyNowTriggered &&
+                                    cartState is CartLoading;
                                 return ElevatedButton(
                                   onPressed: isLoading
                                       ? null
                                       : () {
-                                          setState(() { _isBuyNowTriggered = true; });
-                                          context.read<CartCubit>().addToCart(CartTemplate(
-                                            id: template.id,
-                                            title: template.title,
-                                            description: template.description,
-                                            price: template.price,
-                                            thumbnail: template.thumbnail,
-                                          ));
+                                          setState(() {
+                                            _isBuyNowTriggered = true;
+                                          });
+                                          context.read<CartCubit>().addToCart(
+                                            CartTemplate(
+                                              id: template.id,
+                                              title: template.title,
+                                              description: template.description,
+                                              price: template.price,
+                                              thumbnail: template.thumbnail,
+                                            ),
+                                          );
                                         },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.teal,
-                                    padding: const EdgeInsets.symmetric(vertical: 14),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 14,
+                                    ),
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(12),
@@ -208,10 +234,7 @@ class _TemplateDetailsViewState extends State<TemplateDetailsView> {
 
                           Text(
                             template.description,
-                            style: const TextStyle(
-                              height: 1.6,
-                              fontSize: 18,
-                            ),
+                            style: const TextStyle(height: 1.6, fontSize: 18),
                           ),
 
                           if (template.categoryName != null &&

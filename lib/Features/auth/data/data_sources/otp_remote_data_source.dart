@@ -6,34 +6,24 @@ class OtpRemoteDataSource {
   Future<Response> verifyOtp({
     required String email,
     required String code,
-
   }) async {
     return await DioHelper.postData(
       url: ApiEndpoints.verifyOtp,
-      data: {"email": email, "code": code.toString(),
-      //"type": "phone_verification",
+      data: {
+        "email": email, "code": code.toString(),
+        //"type": "phone_verification",
       },
-    
-      headers: {
-        'Content-Type': 'application/json',
-      },
+
+      headers: {'Content-Type': 'application/json'},
     );
   }
 
-  Future<Response> resendOtp({
-    required String email,
-  }) async {
+  Future<Response> resendOtp({required String email}) async {
     return await DioHelper.postData(
       url: ApiEndpoints.resendOtp,
-      data: {
-        "email": email,
-        "type": "email_verification",
-      },
-      
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      data: {"email": email, "type": "email_verification"},
+
+      headers: {'Content-Type': 'application/json'},
     );
   }
-
 }

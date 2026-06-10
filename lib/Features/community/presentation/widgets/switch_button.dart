@@ -10,16 +10,13 @@
 //   required this.index,
 //   required this.selectedIndex,
 //   required this.onTap
-  
-//   });
 
+//   });
 
 //   @override
 //   Widget build(BuildContext context) {
-   
-  
-//        final bool isSelected = selectedIndex == index;
 
+//        final bool isSelected = selectedIndex == index;
 
 //     return GestureDetector(
 //       onTap: onTap,
@@ -85,13 +82,8 @@ class SwitchButton extends StatelessWidget {
         height: 45,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isSelected
-              ? const Color(0xFF0D3B40)
-              : Colors.white,
-          border: Border.all(
-            color: const Color(0xFF0D3B40),
-            width: 1.2,
-          ),
+          color: isSelected ? const Color(0xFF0D3B40) : Colors.white,
+          border: Border.all(color: const Color(0xFF0D3B40), width: 1.2),
           borderRadius: BorderRadius.only(
             topLeft: isFirst ? const Radius.circular(18) : Radius.zero,
             bottomLeft: isFirst ? const Radius.circular(18) : Radius.zero,

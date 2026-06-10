@@ -17,9 +17,7 @@ class ProductCard extends StatelessWidget {
     required this.onpressed,
   });
 
-  
   Widget _buildProductImage(String? path) {
-   
     if (path == null || path.isEmpty) {
       return Image.asset(
         AppImages.placeholderTemplate,
@@ -28,7 +26,6 @@ class ProductCard extends StatelessWidget {
       );
     }
 
-    
     if (path.startsWith('http://') || path.startsWith('https://')) {
       return Image.network(
         path,
@@ -42,7 +39,6 @@ class ProductCard extends StatelessWidget {
       );
     }
 
-    
     if (path.startsWith('/')) {
       final fullUrl = 'http://10.0.2.2:5000$path';
       return Image.network(
@@ -57,7 +53,6 @@ class ProductCard extends StatelessWidget {
       );
     }
 
-  
     if (path.startsWith('assets/')) {
       return Image.asset(
         path,
@@ -71,7 +66,6 @@ class ProductCard extends StatelessWidget {
       );
     }
 
-  
     return Image.asset(
       AppImages.placeholderTemplate,
       width: double.infinity,
@@ -90,12 +84,7 @@ class ProductCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(18),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 8,
-              color: Colors.grey.shade200,
-            ),
-          ],
+          boxShadow: [BoxShadow(blurRadius: 8, color: Colors.grey.shade200)],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
