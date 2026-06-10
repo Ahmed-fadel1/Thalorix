@@ -37,7 +37,7 @@ class DioHelper {
 
   static Future<Response> postData({
     required String url,
-    Map<String, dynamic>? data,
+    dynamic data,
     Map<String, dynamic>? query,
     Map<String, String>? headers,
   }) async {
@@ -63,6 +63,24 @@ class DioHelper {
         url,
         data: data,
         options: Options(headers: headers),
+      );
+    } on DioException catch (e) {
+      throw ErrorHandler.handle(e);
+    }
+  }
+
+  static Future<Response> deleteData({
+    required String url,
+    dynamic data,
+    Map<String, dynamic>? query,
+    Map<String, String>? headers,
+  }) async {
+    try {
+      return await dio.delete(
+        url,
+        data: data,
+        queryParameters: query,
+        options: Options(headers: headers ?? _headers()),
       );
     } on DioException catch (e) {
       throw ErrorHandler.handle(e);

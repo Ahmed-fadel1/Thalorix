@@ -149,6 +149,7 @@ import 'package:thalorix_app/Features/home/presentation/widgets/build_quick_acce
 import 'package:thalorix_app/core/utils/Colors/app_colors.dart';
 
 import 'package:thalorix_app/core/cache/cache_helper.dart';
+import 'package:thalorix_app/core/utils/router/app_router.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody();
@@ -170,10 +171,9 @@ class HomeBody extends StatelessWidget {
                   children: [
                     const CircleAvatar(
                       radius: 25,
-                      backgroundImage:
-                          NetworkImage('https://via.placeholder.com/150',
-                          
-                          ),
+                      backgroundImage: NetworkImage(
+                        'https://via.placeholder.com/150',
+                      ),
                     ),
                     const SizedBox(width: 15),
                     Column(
@@ -224,33 +224,65 @@ class HomeBody extends StatelessWidget {
               mainAxisSpacing: 15,
               childAspectRatio: 1.5,
               children: [
-                BuildQuickAccessCard("Upload Template", "Share your templates",
-                    Icons.upload, const [Color(0xFFB2D8D8), Color(0xFF8AB6B6)]),
-                BuildQuickAccessCard("Community", "Join discussions",
-                    Icons.group, const [Color(0xFFB2D8D8), Color(0xFF8AB6B6)]),
-                BuildQuickAccessCard("Messages", "Chat with team",
-                    Icons.chat_bubble_outline, const [Color(0xFF3B6B6B), Color(0xFF0D3B40)]),
-                BuildQuickAccessCard("Analytics", "Track performance",
-                    Icons.show_chart, const [Color(0xFF3B6B6B), Color(0xFF0D3B40)]),
+                BuildQuickAccessCard(
+                  "Upload Template",
+                  "Share your templates",
+                  Icons.upload,
+                  const [Color(0xFFB2D8D8), Color(0xFF8AB6B6)],
+                ),
+                BuildQuickAccessCard(
+                  "Community",
+                  "Join discussions",
+                  Icons.group,
+                  const [Color(0xFFB2D8D8), Color(0xFF8AB6B6)],
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.chatsScreen);
+                  },
+                  child: BuildQuickAccessCard(
+                    "Messages",
+                    "Chat with team",
+                    Icons.chat_bubble_outline,
+                    const [Color(0xFF3B6B6B), Color(0xFF0D3B40)],
+                  ),
+                ),
+                BuildQuickAccessCard(
+                  "Analytics",
+                  "Track performance",
+                  Icons.show_chart,
+                  const [Color(0xFF3B6B6B), Color(0xFF0D3B40)],
+                ),
               ],
             ),
             const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
-                Text("Recent Activity",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF0D3B40))),
+                Text(
+                  "Recent Activity",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF0D3B40),
+                  ),
+                ),
                 Text("View All", style: TextStyle(color: Color(0xFF3B6B6B))),
               ],
             ),
             const SizedBox(height: 15),
-            BuildActivityItem("E-commerce Template", "Purchased 2 hours ago",
-                "Downloaded", Icons.shopping_bag_outlined),
-            BuildActivityItem("React Component", "Generated 1 day ago",
-                "Ready", Icons.code),
+            BuildActivityItem(
+              "E-commerce Template",
+              "Purchased 2 hours ago",
+              "Downloaded",
+              Icons.shopping_bag_outlined,
+            ),
+            BuildActivityItem(
+              "React Component",
+              "Generated 1 day ago",
+              "Ready",
+              Icons.code,
+            ),
           ],
         ),
       ),

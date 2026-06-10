@@ -5,6 +5,12 @@ class ApiEndpoints {
   static const String verifyOtp = 'otp/verify';
   static const String resendOtp = 'otp/request';
 
+  static const String categories = 'categories';
+  static const String templates = 'templates';
+  static const String orders = 'orders';
+  static const String myOrders = 'orders/my-orders';
+  static const String createCheckoutSession = 'stripe/create-checkout-session';
+
   // Community - Posts
   static const String communityPost = 'community/post';
   static const String communityFeed = 'community/feed';
