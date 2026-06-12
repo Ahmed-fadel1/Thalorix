@@ -33,5 +33,27 @@ class AuthRemoteDataSource {
         data: {"email": email, "password": password},
       );
     }
+
+  Future<Response> forgotPassword(String email) async {
+    return await DioHelper.postData(
+      url: ApiEndpoints.forgotPassword,
+      data: {"email": email},
+    );
   }
+
+  Future<Response> resetPassword({
+    required String email,
+    required String code,
+    required String newPassword,
+  }) async {
+    return await DioHelper.postData(
+      url: ApiEndpoints.resetPassword,
+      data: {
+        "email": email,
+        "code": code,
+        "newPassword": newPassword,
+      },
+    );
+  }
+}
 

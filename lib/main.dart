@@ -5,6 +5,8 @@ import 'package:thalorix_app/Features/auth/data/data_sources/auth_remote_data_so
 import 'package:thalorix_app/Features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:thalorix_app/Features/auth/domain/usecases/login_usecase.dart';
 import 'package:thalorix_app/Features/auth/domain/usecases/sign_up_usecase.dart';
+import 'package:thalorix_app/Features/auth/domain/usecases/forgot_password_usecase.dart';
+import 'package:thalorix_app/Features/auth/domain/usecases/reset_password_usecase.dart';
 import 'package:thalorix_app/Features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:thalorix_app/core/cache/cache_helper.dart';
 import 'package:thalorix_app/core/utils/constants/supabase_data.dart';
@@ -28,7 +30,12 @@ void main() async {
         BlocProvider<AuthCubit>(
           create: (context) {
             final repo = AuthRepositoryImpl(AuthRemoteDataSource());
-            return AuthCubit(SignUpUseCase(repo), LoginUseCase(repo));
+            return AuthCubit(
+              SignUpUseCase(repo),
+              LoginUseCase(repo),
+              ForgotPasswordUseCase(repo),
+              ResetPasswordUseCase(repo),
+            );
           },
         ),
         BlocProvider<CartCubit>(
@@ -48,7 +55,7 @@ class Thalorix extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.login,
+      initialRoute: Routes.splash,
       onGenerateRoute: appRouter.generateRoute,
     );
   }

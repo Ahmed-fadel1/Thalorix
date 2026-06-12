@@ -1,4 +1,4 @@
-enum AuthProcess { signup, login, verifyOtp, forgotPassword }
+enum AuthProcess { signup, login, verifyOtp, forgotPassword, resetPassword }
 
 abstract class AuthState {}
 

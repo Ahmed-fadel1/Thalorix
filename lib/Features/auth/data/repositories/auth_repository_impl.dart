@@ -74,4 +74,52 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, String>> forgotPassword(String email) async {
+    try {
+      final response = await remote.forgotPassword(email);
+      final data = response.data;
+
+      if (data is! Map<String, dynamic>) {
+        return Left(ServerFailure("Invalid response format"));
+      }
+      if (data['message'] is List) {
+        return Left(ServerFailure((data['message'] as List).join('\n')));
+      }
+
+      return Right(data['message'] ?? "OTP sent to your email");
+    } catch (e) {
+      if (e is Failure) return Left(e);
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> resetPassword({
+    required String email,
+    required String code,
+    required String newPassword,
+  }) async {
+    try {
+      final response = await remote.resetPassword(
+        email: email,
+        code: code,
+        newPassword: newPassword,
+      );
+      final data = response.data;
+
+      if (data is! Map<String, dynamic>) {
+        return Left(ServerFailure("Invalid response format"));
+      }
+      if (data['message'] is List) {
+        return Left(ServerFailure((data['message'] as List).join('\n')));
+      }
+
+      return Right(data['message'] ?? "Password reset successfully");
+    } catch (e) {
+      if (e is Failure) return Left(e);
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

@@ -1,10 +1,12 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:thalorix_app/Features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:thalorix_app/Features/auth/presentation/cubit/auth_state.dart';
 import 'package:thalorix_app/Features/auth/presentation/pages/forgot_password/email_password.dart';
-import 'package:thalorix_app/Features/auth/presentation/pages/forgot_password/reset_phone_password.dart';
+import 'package:thalorix_app/Features/auth/presentation/widgets/auth_text_field.dart';
+import 'package:thalorix_app/Features/auth/presentation/widgets/primary_button.dart';
 import 'package:thalorix_app/core/utils/Colors/app_colors.dart';
-import 'package:thalorix_app/core/utils/router/app_router.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
@@ -14,213 +16,138 @@ class ForgetPasswordScreen extends StatefulWidget {
 }
 
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
-  String? _selectedOption;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Email is required';
+    }
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+      return 'Enter a valid email';
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    final authCubit = AuthCubit.get(context);
+
     return Scaffold(
-      body: Container(
-        height: size.height,
-        width: size.width,
-
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            double localheight = constraints.maxHeight;
-            double localwidth = constraints.maxWidth;
-            return SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        height: localheight * 0.08,
-                        width: localwidth * 0.08,
-
-                        margin: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: AppColors.splashPrimary,
-                            width: 1,
-                          ),
-                        ),
-                        child: Center(
-                          child: SvgPicture.asset(
-                            "assets/icons/arrow_back.svg",
-                            color: AppColors.splashPrimary,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 15),
-                    const Text(
-                      'Forgot Password',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.splashPrimary,
-                      ),
-                    ),
-                    Text(
-                      'Select which contact details should we use to\n reset your password',
-
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: AppColors.welcome_text,
-                        height: 1.5,
-                      ),
-                    ),
-
-                    const SizedBox(height: 30),
-                    _buildOptionCard(
-                      value: 'Email',
-                      icon: Icons.email_outlined,
-                      title: 'Email',
-                      subtitle: 'Send to yor email',
-                    ),
-                    const SizedBox(height: 16),
-                    _buildOptionCard(
-                      value: 'phone',
-                      icon: Icons.phone_outlined,
-                      title: 'Phone Number',
-                      subtitle: 'Send to yor phone number',
-                    ),
-                    const SizedBox(height: 30),
-                    _buildContinueButton(context),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildOptionCard({
-    required String value,
-    required IconData icon,
-    required String title,
-    required String subtitle,
-  }) {
-    final bool isSelected = _selectedOption == value;
-
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _selectedOption = value;
-        });
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        decoration: BoxDecoration(
-          color: isSelected ? AppColors.splashPrimary : Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: isSelected ? AppColors.splashPrimary : Colors.grey.shade200,
-            width: 2,
-          ),
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? const Color(0xFF2ecc71)
-                    : Colors.grey.shade200,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                icon,
-                color: isSelected ? Colors.white : Colors.grey.shade600,
-              ),
-            ),
-            const SizedBox(width: 15),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: isSelected
-                          ? const Color(0xFF2ecc71)
-                          : Colors.black87,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                  ),
-                ],
-              ),
-            ),
-
-            if (isSelected)
-              const Icon(
-                Icons.check_circle,
-                color: Color(0xFF2ecc71),
-                size: 24,
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildContinueButton(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 50,
-      child: ElevatedButton(
-        onPressed: () {
-          if (_selectedOption == null) {
+      backgroundColor: Colors.white,
+      body: BlocConsumer<AuthCubit, AuthState>(
+        listener: (context, state) {
+          if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Please select an option'),
+              SnackBar(
+                content: Text(state.message),
                 backgroundColor: Colors.red,
               ),
             );
-          } else {
-            if (_selectedOption == 'Email') {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const EmailScreen()),
-              );
-            } else if (_selectedOption == 'phone') {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ResetPhonePassword(),
-                ),
-              );
-            }
+          } else if (state is AuthSuccess &&
+              state.process == AuthProcess.forgotPassword) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message ?? "OTP sent successfully"),
+                backgroundColor: Colors.green,
+              ),
+            );
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const ResetPasswordScreen()),
+            );
           }
         },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.splashPrimary,
-          foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          elevation: 0,
-        ),
-        child: const Text(
-          'Continue',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
+        builder: (context, state) {
+          bool isLoading =
+              state is AuthLoading && state.process == AuthProcess.forgotPassword;
+
+          return SizedBox(
+            height: size.height,
+            width: size.width,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          height: 40,
+                          width: 40,
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: AppColors.splashPrimary,
+                              width: 1,
+                            ),
+                          ),
+                          child: Center(
+                            child: SvgPicture.asset(
+                              "assets/icons/arrow_back.svg",
+                              color: AppColors.splashPrimary,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      const Text(
+                        'Forgot Password',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.splashPrimary,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Enter your email address to receive a verification code for password reset.',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppColors.welcome_text,
+                          height: 1.5,
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                      AuthTextField(
+                        hint: "Enter your email",
+                        borderColor: AppColors.splashPrimary,
+                        controller: authCubit.emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: validateEmail,
+                      ),
+                      const SizedBox(height: 40),
+                      isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.splashPrimary,
+                              ),
+                            )
+                          : PrimaryButton(
+                              height: 50,
+                              text: "Continue",
+                              backgroundColor: AppColors.splashPrimary,
+                              textColor: Colors.white,
+                              onTap: () {
+                                if (_formKey.currentState!.validate()) {
+                                  authCubit.forgotPassword();
+                                }
+                              },
+                            ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

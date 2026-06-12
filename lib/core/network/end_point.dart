@@ -4,6 +4,8 @@ class ApiEndpoints {
   static const String login = 'auth/mob/login';
   static const String verifyOtp = 'otp/verify';
   static const String resendOtp = 'otp/request';
+  static const String forgotPassword = 'auth/forgot-password';
+  static const String resetPassword = 'auth/reset-password';
 
   static const String categories = 'categories';
   static const String templates = 'templates';
