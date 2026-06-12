@@ -1,3 +1,5 @@
+import 'package:thalorix_app/core/cache/cache_helper.dart';
+
 class CommentModel {
   final String id;
   final String postId;
@@ -23,15 +25,44 @@ class CommentModel {
     // Handle nested user object if present
     final user = json['userId'] is Map<String, dynamic> ? json['userId'] : null;
 
+    // Extract the raw userId string
+    final rawUserId = user != null
+        ? user['_id']?.toString() ?? ''
+        : json['userId']?.toString() ?? '';
+
+    // Determine author name:
+    // 1. If backend returns populated user object → use user.name
+    // 2. If userId matches current logged-in user → use cached name
+    // 3. Fallback → "User XXXX" (last 4 chars of userId)
+    String resolvedName;
+    String? resolvedAvatar;
+
+    if (user != null && user['name'] != null) {
+      // Backend populated the user object
+      resolvedName = user['name'];
+      resolvedAvatar = user['avatar'];
+    } else {
+      // Backend returned userId as plain string
+      final currentUserId = CacheHelper.getUserId();
+      if (currentUserId != null && currentUserId == rawUserId) {
+        // This is the current user's comment → show their name from cache
+        resolvedName = CacheHelper.getName() ?? 'Me';
+        resolvedAvatar = null;
+      } else {
+        // Another user's comment → show User + short ID
+        resolvedName =
+            'User ${rawUserId.length > 4 ? rawUserId.substring(rawUserId.length - 4) : rawUserId}';
+        resolvedAvatar = null;
+      }
+    }
+
     return CommentModel(
       id: json['_id']?.toString() ?? json['id']?.toString() ?? '',
       postId: json['postId']?.toString() ?? '',
       content: json['content'] ?? '',
-      userId: user != null
-          ? user['_id']?.toString() ?? ''
-          : json['userId']?.toString() ?? '',
-      authorName: user?['name'] ?? json['authorName'] ?? 'Unknown',
-      authorAvatar: user?['avatar'] ?? json['authorAvatar'],
+      userId: rawUserId,
+      authorName: resolvedName,
+      authorAvatar: resolvedAvatar ?? json['authorAvatar'],
       createdAt: json['createdAt'] != null
           ? DateTime.parse(json['createdAt'])
           : DateTime.now(),

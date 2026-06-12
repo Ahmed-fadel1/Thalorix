@@ -33,7 +33,7 @@ class UserModel {
     return {
       'id': id,
       'name': name,
-      'email': email,
+      'email': email, 
       'role': role,
       'isVerified': isVerified,
       'phone': phone,

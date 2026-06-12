@@ -53,6 +53,13 @@ class CommunityRepositoryImpl implements CommunityRepository {
       final data = response.data;
 
       if (data is Map<String, dynamic>) {
+        // Check if the response indicates an error
+        if (response.statusCode != null && response.statusCode! >= 400) {
+          final errorMsg = data['message'] is List
+              ? (data['message'] as List).join('\n')
+              : data['message']?.toString() ?? 'Server error';
+          return Left(ServerFailure(errorMsg));
+        }
         if (data['message'] is List) {
           return Left(ServerFailure((data['message'] as List).join('\n')));
         }

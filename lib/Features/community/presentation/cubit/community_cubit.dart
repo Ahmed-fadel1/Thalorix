@@ -36,6 +36,27 @@ class CommunityCubit extends Cubit<CommunityState> {
     );
   }
 
+  /// Returns posts from the last hour (trending)
+  void getTrending() {
+    if (_posts.isEmpty) {
+      emit(CommunityLoaded([]));
+      return;
+    }
+
+    final now = DateTime.now();
+    final trendingPosts = _posts.where((post) {
+      final diff = now.difference(post.createdAt);
+      return diff.inHours < 1;
+    }).toList();
+
+    emit(CommunityLoaded(trendingPosts));
+  }
+
+  /// Returns all posts (no filter)
+  void getAll() {
+    emit(CommunityLoaded(_posts));
+  }
+
   Future<void> createPost({
     required String content,
     required String userId,

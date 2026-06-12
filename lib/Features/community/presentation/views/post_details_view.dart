@@ -51,10 +51,11 @@ class _PostDetailsViewState extends State<PostDetailsView> {
         deleteCommentUseCase: DeleteCommentUseCase(repo),
       )..getComments(postId: widget.post.id),
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFF0F2F5),
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
+          surfaceTintColor: Colors.transparent,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios, color: Color(0xFF0D3B40)),
             onPressed: () => Navigator.pop(context),
@@ -83,7 +84,7 @@ class _PostDetailsViewState extends State<PostDetailsView> {
                   }
                 },
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -93,106 +94,128 @@ class _PostDetailsViewState extends State<PostDetailsView> {
                         overrideCommentsCount: _liveCommentsCount,
                       ),
 
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 16),
 
-                      // Comments header with live count
-                      Row(
-                        children: [
-                          const Text(
-                            'Comments',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF0D3B40),
+                      // Comments section in a white card
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.04),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
                             ),
-                          ),
-                          const SizedBox(width: 8),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 2),
-                            decoration: BoxDecoration(
-                              color: AppColors.splashPrimary
-                                  .withValues(alpha: 0.1),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Text(
-                              '$_liveCommentsCount',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.splashPrimary,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      const SizedBox(height: 12),
-
-                      // Comments list
-                      BlocBuilder<CommentCubit, CommentState>(
-                        builder: (context, state) {
-                          if (state is CommentsLoading) {
-                            return const Center(
-                              child: Padding(
-                                padding: EdgeInsets.all(20),
-                                child: CircularProgressIndicator(
-                                  color: AppColors.splashPrimary,
-                                ),
-                              ),
-                            );
-                          }
-
-                          if (state is CommentError) {
-                            return Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Text(
-                                  state.message,
-                                  style: TextStyle(color: Colors.grey.shade600),
-                                ),
-                              ),
-                            );
-                          }
-
-                          if (state is CommentsLoaded) {
-                            if (state.comments.isEmpty) {
-                              return Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(30),
-                                  child: Column(
-                                    children: [
-                                      Icon(Icons.chat_bubble_outline,
-                                          size: 40,
-                                          color: Colors.grey.shade400),
-                                      const SizedBox(height: 8),
-                                      Text(
-                                        'No comments yet',
-                                        style: TextStyle(
-                                          color: Colors.grey.shade500,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Comments header with live count
+                            Row(
+                              children: [
+                                const Text(
+                                  'Comments',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF0D3B40),
                                   ),
                                 ),
-                              );
-                            }
+                                const SizedBox(width: 8),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 2),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.splashPrimary
+                                        .withValues(alpha: 0.1),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Text(
+                                    '$_liveCommentsCount',
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.splashPrimary,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
 
-                            return ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: state.comments.length,
-                              itemBuilder: (context, index) {
-                                return CommentCard(
-                                  comment: state.comments[index],
-                                );
+                            const SizedBox(height: 12),
+
+                            // Comments list
+                            BlocBuilder<CommentCubit, CommentState>(
+                              builder: (context, state) {
+                                if (state is CommentsLoading) {
+                                  return const Center(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(20),
+                                      child: CircularProgressIndicator(
+                                        color: AppColors.splashPrimary,
+                                      ),
+                                    ),
+                                  );
+                                }
+
+                                if (state is CommentError) {
+                                  return Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20),
+                                      child: Text(
+                                        state.message,
+                                        style: TextStyle(
+                                            color: Colors.grey.shade600),
+                                      ),
+                                    ),
+                                  );
+                                }
+
+                                if (state is CommentsLoaded) {
+                                  if (state.comments.isEmpty) {
+                                    return Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(30),
+                                        child: Column(
+                                          children: [
+                                            Icon(Icons.chat_bubble_outline,
+                                                size: 40,
+                                                color: Colors.grey.shade400),
+                                            const SizedBox(height: 8),
+                                            Text(
+                                              'No comments yet',
+                                              style: TextStyle(
+                                                color: Colors.grey.shade500,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }
+
+                                  return ListView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: state.comments.length,
+                                    itemBuilder: (context, index) {
+                                      return CommentCard(
+                                        comment: state.comments[index],
+                                      );
+                                    },
+                                  );
+                                }
+
+                                return const SizedBox.shrink();
                               },
-                            );
-                          }
-
-                          return const SizedBox.shrink();
-                        },
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -215,8 +238,8 @@ class _PostDetailsViewState extends State<PostDetailsView> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.shade200,
-            blurRadius: 8,
+            color: Colors.black.withValues(alpha: 0.06),
+            blurRadius: 10,
             offset: const Offset(0, -2),
           ),
         ],
@@ -224,14 +247,33 @@ class _PostDetailsViewState extends State<PostDetailsView> {
       child: SafeArea(
         child: Row(
           children: [
+            // User avatar
+            CircleAvatar(
+              radius: 16,
+              backgroundColor:
+                  AppColors.splashPrimary.withValues(alpha: 0.15),
+              child: Text(
+                (CacheHelper.getName() ?? 'U')[0].toUpperCase(),
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.splashPrimary,
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
             Expanded(
               child: TextField(
                 controller: _commentController,
+                style: const TextStyle(fontSize: 14, color: Color(0xFF1A1A2E)),
                 decoration: InputDecoration(
                   hintText: 'Write a comment...',
-                  hintStyle: TextStyle(color: Colors.grey.shade400),
+                  hintStyle: TextStyle(
+                    color: Colors.grey.shade400,
+                    fontSize: 14,
+                  ),
                   filled: true,
-                  fillColor: Colors.grey.shade100,
+                  fillColor: const Color(0xFFF0F2F5),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(24),
                     borderSide: BorderSide.none,
@@ -274,6 +316,8 @@ class _PostDetailsViewState extends State<PostDetailsView> {
                           if (content.isEmpty) return;
 
                           final userId = CacheHelper.getUserId() ?? '';
+                          debugPrint(
+                              '💬 Adding comment - userId: $userId, postId: ${widget.post.id}');
 
                           context.read<CommentCubit>().addComment(
                                 postId: widget.post.id,
