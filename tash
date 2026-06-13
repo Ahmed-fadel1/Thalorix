@@ -1,0 +1,203 @@
+warning: in the working copy of 'linux/flutter/generated_plugins.cmake', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'macos/Flutter/GeneratedPluginRegistrant.swift', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'windows/flutter/generated_plugins.cmake', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/linux/flutter/generated_plugins.cmake b/linux/flutter/generated_plugins.cmake[m
+[1mindex 21d8f8b..5d07423 100644[m
+[1m--- a/linux/flutter/generated_plugins.cmake[m
+[1m+++ b/linux/flutter/generated_plugins.cmake[m
+[36m@@ -8,7 +8,6 @@[m [mlist(APPEND FLUTTER_PLUGIN_LIST[m
+ )[m
+ [m
+ list(APPEND FLUTTER_FFI_PLUGIN_LIST[m
+[31m-  jni[m
+ )[m
+ [m
+ set(PLUGIN_BUNDLED_LIBRARIES)[m
+[1mdiff --git a/macos/Flutter/GeneratedPluginRegistrant.swift b/macos/Flutter/GeneratedPluginRegistrant.swift[m
+[1mindex a620c94..92b6497 100644[m
+[1m--- a/macos/Flutter/GeneratedPluginRegistrant.swift[m
+[1m+++ b/macos/Flutter/GeneratedPluginRegistrant.swift[m
+[36m@@ -6,11 +6,13 @@[m [mimport FlutterMacOS[m
+ import Foundation[m
+ [m
+ import app_links[m
+[32m+[m[32mimport path_provider_foundation[m
+ import shared_preferences_foundation[m
+ import url_launcher_macos[m
+ [m
+ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {[m
+   AppLinksMacosPlugin.register(with: registry.registrar(forPlugin: "AppLinksMacosPlugin"))[m
+[32m+[m[32m  PathProviderPlugin.register(with: registry.registrar(forPlugin: "PathProviderPlugin"))[m
+   SharedPreferencesPlugin.register(with: registry.registrar(forPlugin: "SharedPreferencesPlugin"))[m
+   UrlLauncherPlugin.register(with: registry.registrar(forPlugin: "UrlLauncherPlugin"))[m
+ }[m
+[1mdiff --git a/pubspec.lock b/pubspec.lock[m
+[1mindex 88928e3..209fc09 100644[m
+[1m--- a/pubspec.lock[m
+[1m+++ b/pubspec.lock[m
+[36m@@ -5,10 +5,10 @@[m [mpackages:[m
+     dependency: "direct main"[m
+     description:[m
+       name: app_links[m
+[31m-      sha256: a350a5b37579b7227aaf9a59c07114617cd4283852e193f743b2b3d2d7483c18[m
+[32m+[m[32m      sha256: "5f88447519add627fe1cbcab4fd1da3d4fed15b9baf29f28b22535c95ecee3e8"[m
+       url: "https://pub.dev"[m
+     source: hosted[m
+[31m-    version: "7.1.1"[m
+[32m+[m[32m    version: "6.4.1"[m
+   app_links_linux:[m
+     dependency: transitive[m
+     description:[m
+[36m@@ -45,10 +45,10 @@[m [mpackages:[m
+     dependency: transitive[m
+     description:[m
+       name: async[m
+[31m-      sha256: e2eb0491ba5ddb6177742d2da23904574082139b07c1e33b8503b9f46f3e1a37[m
+[32m+[m[32m      sha256: "758e6d74e971c3e5aceb4110bfd6698efc7f501675bcfe0c775459a8140750eb"[m
+       url: "https://pub.dev"[m
+     source: hosted[m
+[31m-    version: "2.13.1"[m
+[32m+[m[32m    version: "2.13.0"[m
+   bloc:[m
+     dependency: "direct main"[m
+     description:[m
+[36m@@ -69,10 +69,10 @@[m [mpackages:[m
+     dependency: transitive[m
+     description:[m
+       name: characters[m
+[31m-      sha256: faf38497bda5ead2a8c7615f4f7939df04333478bf32e4173fcb06d428b5716b[m
+[32m+[m[32m      sha256: f71061c654a3380576a52b451dd5532377954cf9dbd272a78fc8479606670803[m
+       url: "https://pub.dev"[m
+     source: hosted[m
+[31m-    version: "1.4.1"[m
+[32m+[m[32m    version: "1.4.0"[m
+   clock:[m
+     dependency: transitive[m
+     description:[m
+[36m@@ -81,14 +81,6 @@[m [mpackages:[m
+       url: "https://pub.dev"[m
+     source: hosted[m
+     version: "1.1.2"[m
+[31m-  code_assets:[m
+[31m-    dependency: transitive[m
+[31m-    description:[m
+[31m-      name: code_assets[m
+[31m-      sha256: bf394f466ba9205f1812a0433b392d6af280f155f56651eda7c18cc32ed493b8[m
+[31m-      url: "https://pub.dev"[m
+[31m-    source: hosted[m
+[31m-    version: "1.2.1"[m
+   collection:[m
+     dependency: transitive[m
+     description:[m
+[36m@@ -117,10 +109,10 @@[m [mpackages:[m
+     dependency: "direct main"[m
+     description:[m
+       name: cupertino_icons[m
+[31m-      sha256: "41e005c33bd814be4d3096aff55b1908d419fde52ca656c8c47719ec745873cd"[m
+[32m+[m[32m      sha256: ba631d1c7f7bef6b729a622b7b752645a2d076dba9976925b8f25725a30e1ee6[m
+       url: "https://pub.dev"[m
+     source: hosted[m
+[31m-    version: "1.0.9"[m
+[32m+[m[32m    version: "1.0.8"[m
+   dart_jsonwebtoken:[m
+     dependency: transitive[m
+     description:[m
+[36m@@ -210,10 +202,10 @@[m [mpackages:[m
+     dependency: "direct main"[m
+     description:[m
+       name: flutter_svg[m
+[31m-      sha256: "35882981abcbfb8c15b286f0cd690ff25bac12d95eff3e25ee207f37d4c42e7f"[m
+[32m+[m[32m      sha256: "87fbd7c534435b6c5d9d98b01e1fd527812b82e68ddd8bd35fc45ed0fa8f0a95"[m
+       url: "https://pub.dev"[m
+     source: hosted[m
+[31m-    version: "2.3.0"[m
+[32m+[m[32m    version: "2.2.3"[m
+   flutter_test:[m
+     dependency: "direct dev"[m
+     description: flutter[m
+[36m@@ -248,14 +240,6 @@[m [mpackages:[m
+       url: "https://pub.dev"[m
+     source: hosted[m
+     version: "2.2.0"[m
+[31m-  hooks:[m
+[31m-    dependency: transitive[m
+[31m-    description:[m
+[31m-      name: hooks[m
+[31m-      sha256: "9a62a50b50b769a737bc0a8ff381f333529df3ab746b2f6b02e83760231455ba"[m
+[31m-      url: "https://pub.dev"[m
+[31m-    source: hosted[m
+[31m-    version: "2.0.2"[m
+   http:[m
+     dependency: transitive[m
+     description:[m
+[36m@@ -272,22 +256,6 @@[m [mpackages:[m
+       url: "https://pub.dev"[m
+     source: hosted[m
+     version: "4.1.2"[m
+[31m-  jni:[m
+[31m-    dependency: transitive[m
+[31m-    description:[m
+[31m-      name: jni[m
+[31m-      sha256: c2230682d5bc2362c1c9e8d3c7f406d9cbba23ab3f2e203a025dd47e0fb2e68f[m
+[31m-      url: "https://pub.dev"[m
+[31m-    source: hosted[m
+[31m-    version: "1.0.0"[m
+[31m-  jni_flutter:[m
+[31m-    dependency: transitive[m
+[31m-    description:[m
+[31m-      name: jni_flutter[m
+[31m-      sha256: "8b59e590786050b1cd866677dddaf76b1ade5e7bc751abe04b86e84d379d3ba6"[m
+[31m-      url: "https://pub.dev"[m
+[31m-    source: hosted[m
+[31m-    version: "1.0.1"[m
+   jwt_decode:[m
+     dependency: transitive[m
+     description:[m
+[36m@@ -300,26 +268,26 @@[m [mpackages:[m
+     dependency: transitive[m
+     description:[m
+       name: leak_tracker[m
+[31m-      sha256: "33e2e26bdd85a0112ec15400c8cbffea70d0f9c3407491f672a2fad47915e2de"[m
+[32m+[m[32m      sha256: "6bb818ecbdffe216e81182c2f0714a2e62b593f4a4f13098713ff1685dfb6ab0"[m
+       url: "https://pub.dev"[m
+     source: hosted[m
+[31m-    version: "11.0.2"[m
+[32m+[m[32m    version: "10.0.9"[m
+   leak_tracker_flutter_testing:[m
+     dependency: transitive[m
+     description:[m
+       name: leak_tracker_flutter_testing[m
+[31m-      sha256: "1dbc140bb5a23c75ea9c4811222756104fbcd1a27173f0c34ca01e16bea473c1"[m
+[32m+[m[32m      sha256: f8b613e7e6a13ec79cfdc0e97638fddb3ab848452eff057653abd3edba760573[m
+       url: "https://pub.dev"[m
+     source: hosted[m
+[31m-    version: "3.0.10"[m
+[32m+[m[32m    version: "3.0.9"[m
+   leak_tracker_testing:[m
+     dependency: transitive[m
+     description:[m
+       name: leak_tracker_testing[m
+[31m-      sha256: "8d5a2d49f4a66b49744b23b018848400d23e54caf9463f4eb20df3eb8acb2eb1"[m
+[32m+[m[32m      sha256: "6ba465d5d76e67ddf503e1161d1f4a6bc42306f9d66ca1e8f079a47290fb06d3"[m
+       url: "https://pub.dev"[m
+     source: hosted[m
+[31m-    version: "3.0.2"[m
+[32m+[m[32m    version: "3.0.1"[m
+   lints:[m
+     dependency: transitive[m
+     description:[m
+[36m@@ -340,26 +308,26 @@[m [mpackages:[m
+     dependency: transitive[m
+     description:[m
+       name: matcher[m
+[31m-      sha256: dc0b7dc7651697ea4ff3e69ef44b0407ea32c487a39fff6a4004fa585e901861[m
+[32m+[m[32m      sha256: dc58c723c3c24bf8d3e2d3ad3f2f9d7bd9cf43ec6feaa64181775e60190153f2[m
+       url: "https://pub.dev"[m
+     source: hosted[m
+[31m-    version: "0.12.19"[m
+[32m+[m[32m    version: "0.12.17"[m
+   material_color_utilities:[m
+     dependency: transitive[m
+     description:[m
+       name: material_color_utilities[m
+[31m-      sha256: "9c337007e8
